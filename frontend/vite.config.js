@@ -8,11 +8,11 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/categories': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:5001',
         changeOrigin: true,
       },
       '/questions': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:5001',
         changeOrigin: true,
       },
     },
