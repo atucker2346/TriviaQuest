@@ -1,0 +1,131 @@
+.quiz-container {
+  width: 100%;
+}
+
+.quiz-header {
+  margin-bottom: 30px;
+}
+
+.quiz-header h2 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.3s ease;
+}
+
+.question-counter {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.quiz-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  gap: 15px;
+}
+
+.nav-button {
+  flex: 1;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.prev-button {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.prev-button:hover:not(:disabled) {
+  background: #e0e0e0;
+}
+
+.prev-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.next-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.next-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.quiz-results {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.quiz-results h2 {
+  color: #333;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+
+.score-display {
+  margin: 30px 0;
+}
+
+.score-number {
+  font-size: 5rem;
+  font-weight: 700;
+  color: #667eea;
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+.score-percentage {
+  font-size: 2rem;
+  color: #764ba2;
+  font-weight: 600;
+  margin: 20px 0;
+}
+
+.restart-button {
+  margin-top: 30px;
+  padding: 15px 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.restart-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
