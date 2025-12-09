@@ -1,9 +1,14 @@
 import './CategorySelection.css'
 
-function CategorySelection({ categories, onSelect, loading }) {
+function CategorySelection({ categories, onSelect, loading, onBack }) {
   return (
     <div className="category-selection">
-      <h2>Select a Category</h2>
+      <div className="category-header">
+        <button onClick={onBack} className="back-button" title="Go back">
+          ← Back
+        </button>
+        <h2>Select a Category</h2>
+      </div>
       <div className="categories-grid">
         {categories.map((category) => (
           <button
