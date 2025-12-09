@@ -67,6 +67,8 @@ def submit_score():
         category = data.get("category")
         score = data.get("score")
         total_questions = data.get("total_questions")
+        time_taken = data.get("time_taken", 0)
+        hints_used = data.get("hints_used", 0)
         
         if not all([player_id, category, score is not None, total_questions]):
             return jsonify({"error": "Missing required fields"}), 400
@@ -78,10 +80,10 @@ def submit_score():
         
         cursor.execute(
             """
-            INSERT INTO scores (player_id, category, score, total_questions, percentage)
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO scores (player_id, category, score, total_questions, percentage, time_taken, hints_used)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             """,
-            (player_id, category, score, total_questions, percentage)
+            (player_id, category, score, total_questions, percentage, time_taken, hints_used)
         )
         
         conn.commit()
@@ -95,6 +97,7 @@ def submit_score():
         
     except Exception as e:
         return jsonify({"error": "Failed to submit score", "details": str(e)}), 500
+
 
 @scoreboard_bp.route("/player/<int:player_id>/stats")
 def get_player_stats(player_id):

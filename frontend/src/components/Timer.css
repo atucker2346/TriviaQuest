@@ -1,0 +1,110 @@
+.timer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.timer-display {
+  position: relative;
+}
+
+.timer-circle {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  transition: transform 0.3s ease;
+}
+
+.timer-circle.medium {
+  animation: pulse-medium 1s infinite;
+}
+
+.timer-circle.low {
+  animation: pulse-low 0.5s infinite;
+}
+
+@keyframes pulse-medium {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes pulse-low {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.timer-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.timer-bg {
+  fill: none;
+  stroke: var(--timer-bg, #e0e0e0);
+  stroke-width: 8;
+}
+
+.timer-progress {
+  fill: none;
+  stroke: var(--timer-color, #4caf50);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1s linear, stroke 0.3s ease;
+}
+
+.timer-circle.medium .timer-progress {
+  stroke: var(--timer-medium, #ff9800);
+}
+
+.timer-circle.low .timer-progress {
+  stroke: var(--timer-low, #f44336);
+}
+
+.timer-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.timer-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-primary, #333);
+  line-height: 1;
+}
+
+.timer-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-secondary, #666);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0.25rem;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .timer-bg {
+  stroke: #424242;
+}
+
+[data-theme="dark"] .timer-number {
+  color: #fff;
+}
+
+[data-theme="dark"] .timer-label {
+  color: #aaa;
+}

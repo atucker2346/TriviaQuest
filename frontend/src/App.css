@@ -142,3 +142,50 @@
     text-align: center;
   }
 }
+
+
+/* Dark Mode Support */
+[data-theme="dark"] .app-container {
+  background: var(--bg-primary);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .app-title {
+  color: #8b9aee;
+}
+
+[data-theme="dark"] .player-info {
+  background-color: #2a2a2a;
+}
+
+[data-theme="dark"] .player-name {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .loading,
+[data-theme="dark"] .error {
+  color: #aaa;
+}
+
+[data-theme="dark"] .error {
+  color: #ff6b6b;
+}
+
+
+.daily-challenge-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.daily-challenge-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+}

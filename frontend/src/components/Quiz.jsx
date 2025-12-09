@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Question from './Question'
 import AnswerFeedback from './AnswerFeedback'
+import Timer from './Timer'
 import { submitScore } from '../services/api'
 import './Quiz.css'
 
-function Quiz({ category, questions, onRestart, playerId }) {
+function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = false, onDailyChallengeComplete }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
   const [selectedAnswers, setSelectedAnswers] = useState({})
@@ -12,24 +13,114 @@ function Quiz({ category, questions, onRestart, playerId }) {
   const [showFeedback, setShowFeedback] = useState(false)
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false)
   const [scoreSubmitted, setScoreSubmitted] = useState(false)
+  const [questionStartTime, setQuestionStartTime] = useState(Date.now())
+  const [totalTimeTaken, setTotalTimeTaken] = useState(0)
+  const [questionTimes, setQuestionTimes] = useState({})
+  const [hintsUsed, setHintsUsed] = useState(0)
+  const [usedFiftyFifty, setUsedFiftyFifty] = useState({})
+  const [skippedQuestions, setSkippedQuestions] = useState({})
+  const [eliminatedChoices, setEliminatedChoices] = useState({})
+  const [timeExpired, setTimeExpired] = useState(false)
 
   const currentQuestion = questions[currentQuestionIndex]
   const totalQuestions = questions.length
+  const timeLimit = currentQuestion?.time_limit || 30
+
+  useEffect(() => {
+    setQuestionStartTime(Date.now())
+    setTimeExpired(false)
+  }, [currentQuestionIndex])
 
   const handleAnswerSelect = (answer) => {
+    if (timeExpired) return
     setSelectedAnswers({
       ...selectedAnswers,
       [currentQuestionIndex]: answer,
     })
   }
 
+  const handleTimeUp = () => {
+    setTimeExpired(true)
+    // Auto-submit or mark as incorrect
+    if (!selectedAnswers[currentQuestionIndex]) {
+      // No answer selected, mark as skipped
+      setSkippedQuestions({
+        ...skippedQuestions,
+        [currentQuestionIndex]: true
+      })
+    }
+    // Record time
+    const timeTaken = Math.floor((Date.now() - questionStartTime) / 1000)
+    setQuestionTimes({
+      ...questionTimes,
+      [currentQuestionIndex]: timeTaken
+    })
+    
+    // Show feedback after a brief delay
+    setTimeout(() => {
+      const selectedAnswer = selectedAnswers[currentQuestionIndex]
+      const isCorrect = selectedAnswer === currentQuestion.correct_answer
+      setIsAnswerCorrect(isCorrect)
+      if (isCorrect) {
+        setScore(score + 1)
+      }
+      setShowFeedback(true)
+    }, 500)
+  }
+
+  const handleFiftyFifty = () => {
+    if (usedFiftyFifty[currentQuestionIndex]) return
+
+    const correctAnswer = currentQuestion.correct_answer
+    const incorrectChoices = currentQuestion.choices.filter(c => c !== correctAnswer)
+    
+    // Randomly select 2 incorrect choices to eliminate
+    const shuffled = [...incorrectChoices].sort(() => Math.random() - 0.5)
+    const toEliminate = shuffled.slice(0, 2)
+    
+    setEliminatedChoices({
+      ...eliminatedChoices,
+      [currentQuestionIndex]: toEliminate
+    })
+    
+    setUsedFiftyFifty({
+      ...usedFiftyFifty,
+      [currentQuestionIndex]: true
+    })
+    
+    setHintsUsed(hintsUsed + 1)
+  }
+
+  const handleSkip = () => {
+    if (skippedQuestions[currentQuestionIndex]) return
+    
+    setSkippedQuestions({
+      ...skippedQuestions,
+      [currentQuestionIndex]: true
+    })
+    
+    setHintsUsed(hintsUsed + 1)
+    
+    // Move to next question
+    handleContinue()
+  }
+
   const handleNext = () => {
+    if (timeExpired) return
+
     const selectedAnswer = selectedAnswers[currentQuestionIndex]
 
-    if (!selectedAnswer) {
-      alert('Please select an answer before continuing')
+    if (!selectedAnswer && !skippedQuestions[currentQuestionIndex]) {
+      alert('Please select an answer, use a hint, or skip the question')
       return
     }
+
+    // Record time for this question
+    const timeTaken = Math.floor((Date.now() - questionStartTime) / 1000)
+    setQuestionTimes({
+      ...questionTimes,
+      [currentQuestionIndex]: timeTaken
+    })
 
     const isCorrect = selectedAnswer === currentQuestion.correct_answer
     setIsAnswerCorrect(isCorrect)
@@ -51,19 +142,30 @@ function Quiz({ category, questions, onRestart, playerId }) {
     return total
   }
 
+  const calculateTotalTime = () => {
+    return Object.values(questionTimes).reduce((sum, time) => sum + time, 0)
+  }
+
   const handleContinue = async () => {
     setShowFeedback(false)
+    setTimeExpired(false)
 
     const isLastQuestion = currentQuestionIndex >= totalQuestions - 1
 
     if (isLastQuestion) {
       const finalScore = calculateScore()
+      const finalTime = calculateTotalTime()
       setScore(finalScore)
+      setTotalTimeTaken(finalTime)
       setShowResults(true)
 
       if (playerId && !scoreSubmitted) {
         try {
-          await submitScore(playerId, category, finalScore, totalQuestions)
+          if (isDailyChallenge && onDailyChallengeComplete) {
+            await onDailyChallengeComplete(finalScore, totalQuestions, finalTime)
+          } else {
+            await submitScore(playerId, category, finalScore, totalQuestions, finalTime, hintsUsed)
+          }
           setScoreSubmitted(true)
         } catch (error) {
           console.error('Failed to submit score:', error)
@@ -82,6 +184,7 @@ function Quiz({ category, questions, onRestart, playerId }) {
 
   if (showResults) {
     const percentage = Math.round((score / totalQuestions) * 100)
+    const avgTimePerQuestion = totalQuestions > 0 ? Math.round(totalTimeTaken / totalQuestions) : 0
     let message = ''
 
     if (percentage === 100) {
@@ -107,6 +210,22 @@ function Quiz({ category, questions, onRestart, playerId }) {
         <div className="score-percentage">
           {percentage}%
         </div>
+        <div className="score-stats">
+          <div className="stat-item">
+            <span className="stat-label">⏱️ Total Time:</span>
+            <span className="stat-value">{totalTimeTaken}s</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">⚡ Avg Time:</span>
+            <span className="stat-value">{avgTimePerQuestion}s/question</span>
+          </div>
+          {hintsUsed > 0 && (
+            <div className="stat-item">
+              <span className="stat-label">💡 Hints Used:</span>
+              <span className="stat-value">{hintsUsed}</span>
+            </div>
+          )}
+        </div>
         {playerId && scoreSubmitted && (
           <div className="score-saved-message">
             ✓ Score saved to your profile
@@ -131,6 +250,11 @@ function Quiz({ category, questions, onRestart, playerId }) {
 
       <div className="quiz-header">
         <h2>{category}</h2>
+        <Timer 
+          timeLimit={timeLimit} 
+          onTimeUp={handleTimeUp}
+          isPaused={showFeedback}
+        />
         <div className="progress-bar">
           <div
             className="progress-fill"
@@ -142,11 +266,35 @@ function Quiz({ category, questions, onRestart, playerId }) {
         </div>
       </div>
 
+      <div className="hints-container">
+        <button
+          onClick={handleFiftyFifty}
+          disabled={usedFiftyFifty[currentQuestionIndex] || timeExpired}
+          className="hint-button fifty-fifty"
+          title="Eliminate 2 wrong answers"
+        >
+          50/50
+        </button>
+        <button
+          onClick={handleSkip}
+          disabled={skippedQuestions[currentQuestionIndex] || timeExpired}
+          className="hint-button skip"
+          title="Skip this question"
+        >
+          ⏭️ Skip
+        </button>
+        <div className="hints-used">
+          💡 Hints: {hintsUsed}
+        </div>
+      </div>
+
       {currentQuestion && (
         <Question
           question={currentQuestion}
           selectedAnswer={selectedAnswers[currentQuestionIndex]}
           onAnswerSelect={handleAnswerSelect}
+          eliminatedChoices={eliminatedChoices[currentQuestionIndex] || []}
+          disabled={timeExpired}
         />
       )}
 
@@ -161,6 +309,7 @@ function Quiz({ category, questions, onRestart, playerId }) {
         <button
           onClick={handleNext}
           className="nav-button next-button"
+          disabled={timeExpired}
         >
           {currentQuestionIndex === totalQuestions - 1 ? 'Finish' : 'Next'}
         </button>
@@ -170,4 +319,3 @@ function Quiz({ category, questions, onRestart, playerId }) {
 }
 
 export default Quiz
-
