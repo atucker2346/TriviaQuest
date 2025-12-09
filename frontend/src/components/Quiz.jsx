@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Question from './Question'
+import AnswerFeedback from './AnswerFeedback'
 import { submitScore } from '../services/api'
 import './Quiz.css'
 
@@ -8,6 +9,8 @@ function Quiz({ category, questions, onRestart, playerId }) {
   const [score, setScore] = useState(0)
   const [selectedAnswers, setSelectedAnswers] = useState({})
   const [showResults, setShowResults] = useState(false)
+  const [showFeedback, setShowFeedback] = useState(false)
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false)
   const [scoreSubmitted, setScoreSubmitted] = useState(false)
 
   const currentQuestion = questions[currentQuestionIndex]
@@ -20,21 +23,44 @@ function Quiz({ category, questions, onRestart, playerId }) {
     })
   }
 
-  const handleNext = async () => {
-    if (currentQuestionIndex < totalQuestions - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1)
-    } else {
-      // Calculate final score
-      let finalScore = 0
-      questions.forEach((q, index) => {
-        if (selectedAnswers[index] === q.correct_answer) {
-          finalScore++
-        }
-      })
+  const handleNext = () => {
+    const selectedAnswer = selectedAnswers[currentQuestionIndex]
+
+    if (!selectedAnswer) {
+      alert('Please select an answer before continuing')
+      return
+    }
+
+    const isCorrect = selectedAnswer === currentQuestion.correct_answer
+    setIsAnswerCorrect(isCorrect)
+
+    if (isCorrect) {
+      setScore(score + 1)
+    }
+
+    setShowFeedback(true)
+  }
+
+  const calculateScore = () => {
+    let total = 0
+    questions.forEach((q, index) => {
+      if (selectedAnswers[index] === q.correct_answer) {
+        total++
+      }
+    })
+    return total
+  }
+
+  const handleContinue = async () => {
+    setShowFeedback(false)
+
+    const isLastQuestion = currentQuestionIndex >= totalQuestions - 1
+
+    if (isLastQuestion) {
+      const finalScore = calculateScore()
       setScore(finalScore)
       setShowResults(true)
 
-      // Submit score if player is logged in
       if (playerId && !scoreSubmitted) {
         try {
           await submitScore(playerId, category, finalScore, totalQuestions)
@@ -43,6 +69,8 @@ function Quiz({ category, questions, onRestart, playerId }) {
           console.error('Failed to submit score:', error)
         }
       }
+    } else {
+      setCurrentQuestionIndex(currentQuestionIndex + 1)
     }
   }
 
@@ -55,7 +83,7 @@ function Quiz({ category, questions, onRestart, playerId }) {
   if (showResults) {
     const percentage = Math.round((score / totalQuestions) * 100)
     let message = ''
-    
+
     if (percentage === 100) {
       message = '🎉 Perfect Score! Amazing!'
     } else if (percentage >= 80) {
@@ -93,6 +121,14 @@ function Quiz({ category, questions, onRestart, playerId }) {
 
   return (
     <div className="quiz-container">
+      {showFeedback && (
+        <AnswerFeedback
+          isCorrect={isAnswerCorrect}
+          correctAnswer={currentQuestion.correct_answer}
+          onContinue={handleContinue}
+        />
+      )}
+
       <div className="quiz-header">
         <h2>{category}</h2>
         <div className="progress-bar">
