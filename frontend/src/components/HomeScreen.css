@@ -10,7 +10,7 @@
   justify-content: center;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #00D4FF 0%, #4B0082 50%, #ADFF2F 100%);
+  background: transparent;
   z-index: 9999;
 }
 
