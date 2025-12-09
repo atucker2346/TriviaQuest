@@ -1,8 +1,9 @@
 .app-container {
-  background: white;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
   min-height: 500px;
 }
 
@@ -16,7 +17,7 @@
 }
 
 .app-title {
-  color: #667eea;
+  color: #00D4FF;
   font-size: 3rem;
   margin: 0;
   font-weight: 700;
@@ -43,48 +44,49 @@
 }
 
 .scoreboard-button {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
   color: white;
 }
 
 .scoreboard-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
 }
 
 .login-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
   color: white;
 }
 
 .login-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
 }
 
 .player-info {
   display: flex;
   gap: 10px;
   align-items: center;
-  background-color: #f5f5f5;
+  background: rgba(0, 212, 255, 0.1);
   padding: 8px 15px;
   border-radius: 8px;
+  border: 1px solid rgba(0, 212, 255, 0.2);
 }
 
 .player-name {
   font-weight: 600;
-  color: #333;
+  color: #00D4FF;
 }
 
 .logout-button {
-  background: #e74c3c;
+  background: rgba(231, 76, 60, 0.8);
   color: white;
   padding: 6px 15px;
   font-size: 0.9rem;
 }
 
 .logout-button:hover {
-  background: #c0392b;
+  background: rgba(231, 76, 60, 1);
   transform: translateY(-1px);
 }
 
@@ -104,17 +106,19 @@
   display: block;
   margin: 20px auto;
   padding: 12px 30px;
-  background: #667eea;
+  background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
 }
 
 .retry-button:hover {
-  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
 }
 
 /* Responsive Design */
