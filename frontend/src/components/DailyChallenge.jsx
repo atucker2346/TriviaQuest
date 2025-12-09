@@ -129,7 +129,6 @@ function DailyChallenge({ playerId, onClose }) {
             playerId={playerId}
             isDailyChallenge={true}
             onDailyChallengeComplete={handleChallengeComplete}
-            onBack={handleBackToMenu}
           />
         </div>
       </div>
@@ -200,9 +199,6 @@ function DailyChallenge({ playerId, onClose }) {
               ))
             )}
           </div>
-          <button onClick={() => setShowLeaderboard(false)} className="back-button">
-            Back
-          </button>
         </div>
       </div>
     )

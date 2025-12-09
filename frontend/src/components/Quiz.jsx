@@ -5,7 +5,7 @@ import Timer from './Timer'
 import { submitScore } from '../services/api'
 import './Quiz.css'
 
-function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = false, onDailyChallengeComplete, onBack }) {
+function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = false, onDailyChallengeComplete }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
   const [selectedAnswers, setSelectedAnswers] = useState({})
@@ -249,14 +249,7 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
       )}
 
       <div className="quiz-header">
-        <div className="quiz-header-top">
-          {onBack && (
-            <button onClick={onBack} className="quiz-back-button" title="Go back to categories">
-              ← Back
-            </button>
-          )}
-          <h2>{category}</h2>
-        </div>
+        <h2>{category}</h2>
         <Timer 
           timeLimit={timeLimit} 
           onTimeUp={handleTimeUp}
