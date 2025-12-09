@@ -1,27 +1,33 @@
 .player-setup {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--bg-primary);
   backdrop-filter: blur(10px);
   padding: 40px;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 102, 204, 0.3);
   max-width: 450px;
   margin: 0 auto;
   text-align: center;
 }
 
+[data-theme="dark"] .player-setup {
+  background: var(--bg-primary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
 .player-setup h3 {
   margin: 0 0 15px 0;
   font-size: 28px;
-  background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-primary-light);
   font-weight: 700;
+}
+
+[data-theme="dark"] .player-setup h3 {
+  color: var(--color-primary-dark);
 }
 
 .player-setup-description {
   margin: 0 0 30px 0;
-  color: #666;
+  color: var(--text-secondary);
   font-size: 16px;
 }
 
@@ -38,13 +44,68 @@
   border-radius: 8px;
   transition: all 0.3s ease;
   font-family: inherit;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
 }
 
 .username-input:focus {
   outline: none;
-  border-color: #0066CC;
+  border-color: var(--color-primary-light);
   box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+/* Dark mode - force light text color with maximum specificity */
+[data-theme="dark"] .player-setup input[type="text"].username-input,
+[data-theme="dark"] .player-setup input.username-input,
+[data-theme="dark"] .player-setup .username-input,
+[data-theme="dark"] input.username-input,
+[data-theme="dark"] .username-input {
+  background: var(--bg-secondary) !important;
+  background-color: var(--bg-secondary) !important;
+  border-color: rgba(159, 211, 255, 0.3) !important;
+  color: #e0e0e0 !important;
+  caret-color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .player-setup input[type="text"].username-input:focus,
+[data-theme="dark"] .player-setup input.username-input:focus,
+[data-theme="dark"] .player-setup .username-input:focus,
+[data-theme="dark"] input.username-input:focus,
+[data-theme="dark"] .username-input:focus {
+  border-color: var(--color-primary-dark) !important;
+  box-shadow: 0 0 0 3px rgba(159, 211, 255, 0.1) !important;
+  color: #e0e0e0 !important;
+  caret-color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .player-setup input[type="text"].username-input:hover,
+[data-theme="dark"] .player-setup input.username-input:hover,
+[data-theme="dark"] .player-setup .username-input:hover,
+[data-theme="dark"] input.username-input:hover,
+[data-theme="dark"] .username-input:hover {
+  color: #e0e0e0 !important;
+}
+
+/* Handle browser autofill in dark mode */
+[data-theme="dark"] .player-setup input.username-input:-webkit-autofill,
+[data-theme="dark"] .player-setup input.username-input:-webkit-autofill:hover,
+[data-theme="dark"] .player-setup input.username-input:-webkit-autofill:focus,
+[data-theme="dark"] .player-setup .username-input:-webkit-autofill,
+[data-theme="dark"] .player-setup .username-input:-webkit-autofill:hover,
+[data-theme="dark"] .player-setup .username-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #e0e0e0 !important;
+  -webkit-box-shadow: 0 0 0px 1000px var(--bg-secondary) inset !important;
+  box-shadow: 0 0 0px 1000px var(--bg-secondary) inset !important;
+  color: #e0e0e0 !important;
+}
+
+.username-input::placeholder {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .username-input::placeholder {
+  color: #e0e0e0;
+  opacity: 0.7;
 }
 
 .error-message {
@@ -53,12 +114,16 @@
   margin-top: -5px;
 }
 
+[data-theme="dark"] .error-message {
+  color: #ff6b6b;
+}
+
 .submit-button {
   padding: 15px 30px;
   font-size: 18px;
   font-weight: 600;
   color: white;
-  background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
+  background: linear-gradient(135deg, var(--color-gradient-start-light) 0%, var(--color-gradient-mid-light) 50%, var(--color-gradient-end-light) 100%);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -68,18 +133,26 @@
 
 .submit-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
 }
 
 .submit-button:active {
   transform: translateY(0);
 }
 
+[data-theme="dark"] .submit-button {
+  background: linear-gradient(135deg, var(--color-gradient-start-dark) 0%, var(--color-gradient-mid-dark) 50%, var(--color-gradient-end-dark) 100%);
+}
+
+[data-theme="dark"] .submit-button:hover {
+  box-shadow: 0 6px 20px rgba(159, 211, 255, 0.4);
+}
+
 .skip-button {
   margin-top: 15px;
   padding: 10px 20px;
   font-size: 14px;
-  color: #666;
+  color: var(--text-secondary);
   background: none;
   border: none;
   cursor: pointer;
@@ -88,7 +161,7 @@
 }
 
 .skip-button:hover {
-  color: #333;
+  color: var(--text-primary);
   text-decoration: underline;
 }
 

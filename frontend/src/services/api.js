@@ -189,3 +189,28 @@ export const listChallenges = async (limit = 20) => {
   if (!response.ok) throw new Error('Failed to fetch challenges')
   return response.json()
 }
+
+// Leaderboard reset APIs
+export const resetLeaderboard = async () => {
+  const response = await fetch(`${API_BASE_URL}/leaderboard/reset`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  })
+  if (!response.ok) {
+    const error = await response.json()
+    throw new Error(error.error || 'Failed to reset leaderboard')
+  }
+  return response.json()
+}
+
+export const resetAllData = async () => {
+  const response = await fetch(`${API_BASE_URL}/leaderboard/reset-all`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  })
+  if (!response.ok) {
+    const error = await response.json()
+    throw new Error(error.error || 'Failed to reset all data')
+  }
+  return response.json()
+}

@@ -25,6 +25,8 @@ function App() {
   const [showPlayerSetup, setShowPlayerSetup] = useState(false)
   const [showScoreboard, setShowScoreboard] = useState(false)
   const [showDailyChallenge, setShowDailyChallenge] = useState(false)
+  const [showChallengeMode, setShowChallengeMode] = useState(false)
+  const [currentChallenge, setCurrentChallenge] = useState(null)
   const [gameMode, setGameMode] = useState(null) // 'timed' or 'solo' or null
 
   useEffect(() => {
@@ -74,10 +76,17 @@ function App() {
     setSelectedCategory(null)
     setQuestions([])
     setGameMode(null) // Reset to mode selection
+    setShowChallengeMode(false) // Close challenge mode if open
+    setCurrentChallenge(null) // Clear any challenge state
   }
 
   const handleModeSelect = (mode) => {
-    setGameMode(mode)
+    if (mode === 'challenge') {
+      setShowChallengeMode(true)
+    } else {
+      setGameMode(mode)
+      setShowChallengeMode(false) // Ensure challenge mode is closed when selecting other modes
+    }
   }
 
   const handleStartGame = () => {
@@ -119,6 +128,30 @@ function App() {
     return (
       <div className="app-container">
         <GameModeSelection onSelectMode={handleModeSelect} />
+        {showChallengeMode && !currentChallenge && (
+          <ChallengeMode
+            playerId={playerId}
+            onStartChallenge={(challengeId, roomCode) => {
+              setCurrentChallenge({ challengeId, roomCode })
+              setShowChallengeMode(false)
+            }}
+            onClose={() => setShowChallengeMode(false)}
+          />
+        )}
+        {currentChallenge && (
+          <ChallengeRoom
+            challengeId={currentChallenge.challengeId}
+            roomCode={currentChallenge.roomCode}
+            playerId={playerId}
+            onClose={() => {
+              setCurrentChallenge(null)
+              setShowChallengeMode(false)
+            }}
+            onComplete={() => {
+              // Challenge completed, keep room open to see final results
+            }}
+          />
+        )}
       </div>
     )
   }
@@ -164,13 +197,6 @@ function App() {
             title="Daily Challenge"
           >
             📅 Daily
-          </button>
-          <button 
-            className="challenge-mode-button"
-            onClick={() => setShowChallengeMode(true)}
-            title="Challenge Mode"
-          >
-            ⚔️ Challenge
           </button>
           <button 
             className="scoreboard-button"
@@ -226,29 +252,6 @@ function App() {
         <DailyChallenge
           playerId={playerId}
           onClose={() => setShowDailyChallenge(false)}
-        />
-      )}
-
-      {showChallengeMode && !currentChallenge && (
-        <ChallengeMode
-          playerId={playerId}
-          onStartChallenge={(challengeId, roomCode) => {
-            setCurrentChallenge({ challengeId, roomCode })
-            setShowChallengeMode(false)
-          }}
-          onClose={() => setShowChallengeMode(false)}
-        />
-      )}
-
-      {currentChallenge && (
-        <ChallengeRoom
-          challengeId={currentChallenge.challengeId}
-          roomCode={currentChallenge.roomCode}
-          playerId={playerId}
-          onClose={() => setCurrentChallenge(null)}
-          onComplete={() => {
-            // Challenge completed, keep room open to see final results
-          }}
         />
       )}
     </div>

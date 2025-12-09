@@ -39,7 +39,21 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
     })
   }
 
-  const handleTimeUp = () => {
+  const calculateScore = () => {
+    let total = 0
+    questions.forEach((q, index) => {
+      if (selectedAnswers[index] === q.correct_answer) {
+        total++
+      }
+    })
+    return total
+  }
+
+  const calculateTotalTime = () => {
+    return Object.values(questionTimes).reduce((sum, time) => sum + time, 0)
+  }
+
+  const handleTimeUp = async () => {
     if (gameMode === 'solo') return // Don't enforce time in solo mode
     setTimeExpired(true)
     
@@ -153,10 +167,9 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
 
       if (playerId && !scoreSubmitted) {
         try {
-          if (onDailyChallengeComplete) {
-            // Used for both daily challenges and regular challenges
+          if (isDailyChallenge && onDailyChallengeComplete) {
             await onDailyChallengeComplete(finalScore, totalQuestions, finalTime)
-          } else if (playerId) {
+          } else {
             await submitScore(playerId, category, finalScore, totalQuestions, finalTime, hintsUsed)
           }
           setScoreSubmitted(true)

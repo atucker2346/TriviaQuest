@@ -36,6 +36,20 @@ function GameModeSelection({ onSelectMode }) {
             <span className="feature-tag">📖 Learn Mode</span>
           </div>
         </div>
+
+        <div 
+          className="mode-card"
+          onClick={() => onSelectMode('challenge')}
+        >
+          <div className="mode-icon">⚔️</div>
+          <h3>Challenge Mode</h3>
+          <p>Compete with friends or players worldwide in real-time trivia challenges! Create or join challenge rooms.</p>
+          <div className="mode-features">
+            <span className="feature-tag">🌍 Multiplayer</span>
+            <span className="feature-tag">⚡ Real-time</span>
+            <span className="feature-tag">🏆 Competitive</span>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { fetchGlobalLeaderboard, fetchPlayerStats } from '../services/api'
+import { fetchGlobalLeaderboard, fetchPlayerStats, resetLeaderboard, resetAllData } from '../services/api'
 import './Scoreboard.css'
 
 function Scoreboard({ playerId, onClose }) {
@@ -8,6 +8,9 @@ function Scoreboard({ playerId, onClose }) {
   const [playerStats, setPlayerStats] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [showResetConfirm, setShowResetConfirm] = useState(false)
+  const [resetType, setResetType] = useState(null) // 'scores' or 'all'
+  const [resetting, setResetting] = useState(false)
 
   useEffect(() => {
     loadData()
@@ -31,6 +34,42 @@ function Scoreboard({ playerId, onClose }) {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleResetClick = (type) => {
+    setResetType(type)
+    setShowResetConfirm(true)
+  }
+
+  const handleResetConfirm = async () => {
+    try {
+      setResetting(true)
+      setError(null)
+      
+      if (resetType === 'scores') {
+        await resetLeaderboard()
+      } else if (resetType === 'all') {
+        await resetAllData()
+      }
+      
+      setShowResetConfirm(false)
+      setResetType(null)
+      
+      // Reload data after reset
+      await loadData()
+      
+      alert('Leaderboard reset successfully!')
+    } catch (err) {
+      setError(err.message || 'Failed to reset leaderboard')
+      console.error(err)
+    } finally {
+      setResetting(false)
+    }
+  }
+
+  const handleResetCancel = () => {
+    setShowResetConfirm(false)
+    setResetType(null)
   }
 
   const renderGlobalLeaderboard = () => {
@@ -155,6 +194,24 @@ function Scoreboard({ playerId, onClose }) {
         <button className="close-button" onClick={onClose}>×</button>
         <div className="scoreboard-header">
           <h2>Scoreboard</h2>
+          {activeTab === 'global' && (
+            <div className="reset-buttons">
+              <button 
+                className="reset-button reset-scores"
+                onClick={() => handleResetClick('scores')}
+                title="Reset all scores (keeps players)"
+              >
+                🔄 Reset Scores
+              </button>
+              <button 
+                className="reset-button reset-all"
+                onClick={() => handleResetClick('all')}
+                title="Reset everything (scores + players)"
+              >
+                ⚠️ Reset All
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="scoreboard-tabs">
@@ -175,6 +232,35 @@ function Scoreboard({ playerId, onClose }) {
         <div className="scoreboard-content">
           {activeTab === 'global' ? renderGlobalLeaderboard() : renderPlayerStats()}
         </div>
+
+        {showResetConfirm && (
+          <div className="reset-confirm-overlay">
+            <div className="reset-confirm-modal">
+              <h3>Confirm Reset</h3>
+              <p>
+                {resetType === 'scores' 
+                  ? 'Are you sure you want to reset all scores? This will clear all leaderboard data but keep player accounts.'
+                  : 'Are you sure you want to reset everything? This will delete ALL scores AND ALL player accounts. This action cannot be undone!'}
+              </p>
+              <div className="reset-confirm-buttons">
+                <button 
+                  className="confirm-button"
+                  onClick={handleResetConfirm}
+                  disabled={resetting}
+                >
+                  {resetting ? 'Resetting...' : 'Yes, Reset'}
+                </button>
+                <button 
+                  className="cancel-button"
+                  onClick={handleResetCancel}
+                  disabled={resetting}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

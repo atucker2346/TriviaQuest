@@ -280,3 +280,55 @@ def get_category_leaderboard(category):
         
     except Exception as e:
         return jsonify({"error": "Failed to fetch category leaderboard", "details": str(e)}), 500
+
+@scoreboard_bp.route("/leaderboard/reset", methods=["DELETE", "POST"])
+def reset_leaderboard():
+    """Reset/clear all leaderboard scores (keeps players)"""
+    try:
+        conn = get_db()
+        cursor = conn.cursor()
+        
+        # Delete all scores
+        cursor.execute("DELETE FROM scores")
+        
+        # Optionally delete all players too (uncomment if you want to reset everything)
+        # cursor.execute("DELETE FROM players")
+        
+        conn.commit()
+        deleted_count = cursor.rowcount
+        conn.close()
+        
+        return jsonify({
+            "message": "Leaderboard reset successfully",
+            "scores_deleted": deleted_count
+        })
+        
+    except Exception as e:
+        return jsonify({"error": "Failed to reset leaderboard", "details": str(e)}), 500
+
+@scoreboard_bp.route("/leaderboard/reset-all", methods=["DELETE", "POST"])
+def reset_all():
+    """Reset everything including players and scores"""
+    try:
+        conn = get_db()
+        cursor = conn.cursor()
+        
+        # Delete all scores first (due to foreign key constraint)
+        cursor.execute("DELETE FROM scores")
+        scores_deleted = cursor.rowcount
+        
+        # Delete all players
+        cursor.execute("DELETE FROM players")
+        players_deleted = cursor.rowcount
+        
+        conn.commit()
+        conn.close()
+        
+        return jsonify({
+            "message": "All data reset successfully",
+            "scores_deleted": scores_deleted,
+            "players_deleted": players_deleted
+        })
+        
+    except Exception as e:
+        return jsonify({"error": "Failed to reset all data", "details": str(e)}), 500

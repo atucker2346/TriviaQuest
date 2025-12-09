@@ -127,15 +127,22 @@ function ChallengeMode({ playerId, onStartChallenge, onClose }) {
             </div>
           </div>
           <div className="form-group">
-            <label>Max Players: {maxPlayers}</label>
-            <input
-              type="range"
-              min="2"
-              max="20"
-              value={maxPlayers}
-              onChange={(e) => setMaxPlayers(parseInt(e.target.value))}
-              className="slider"
-            />
+            <label htmlFor="max-players-slider">Max Players: <span className="max-players-value">{maxPlayers}</span></label>
+            <div className="slider-container">
+              <input
+                type="range"
+                id="max-players-slider"
+                min="2"
+                max="20"
+                value={maxPlayers}
+                onChange={(e) => setMaxPlayers(parseInt(e.target.value))}
+                className="slider"
+              />
+              <div className="slider-labels">
+                <span>2</span>
+                <span>20</span>
+              </div>
+            </div>
           </div>
           {error && <div className="error-message">{error}</div>}
           <button onClick={handleCreate} disabled={loading || !selectedCategory} className="create-btn">
