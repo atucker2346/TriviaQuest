@@ -166,9 +166,10 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
 
       if (playerId && !scoreSubmitted) {
         try {
-          if (isDailyChallenge && onDailyChallengeComplete) {
+          if (onDailyChallengeComplete) {
+            // Used for both daily challenges and regular challenges
             await onDailyChallengeComplete(finalScore, totalQuestions, finalTime)
-          } else {
+          } else if (playerId) {
             await submitScore(playerId, category, finalScore, totalQuestions, finalTime, hintsUsed)
           }
           setScoreSubmitted(true)

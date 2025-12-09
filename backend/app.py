@@ -3,12 +3,14 @@ from flask_cors import CORS
 from routes.questions import questions_bp
 from routes.scoreboard.Scoreboard import scoreboard_bp
 from routes.daily_challenges import daily_challenges_bp
+from routes.challenges import challenges_bp
 
 app = Flask(__name__)
 CORS(app)
 app.register_blueprint(questions_bp)
 app.register_blueprint(scoreboard_bp)
 app.register_blueprint(daily_challenges_bp)
+app.register_blueprint(challenges_bp)
 
 # Serve static files (sound effects)
 @app.route('/static/<path:filename>')

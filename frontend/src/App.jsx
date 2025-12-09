@@ -6,6 +6,8 @@ import Quiz from './components/Quiz'
 import PlayerSetup from './components/PlayerSetup'
 import Scoreboard from './components/Scoreboard'
 import DailyChallenge from './components/DailyChallenge'
+import ChallengeMode from './components/ChallengeMode'
+import ChallengeRoom from './components/ChallengeRoom'
 import ThemeToggle from './components/ThemeToggle'
 import SoundToggle from './components/SoundToggle'
 import './App.css'
@@ -22,6 +24,8 @@ function App() {
   const [showPlayerSetup, setShowPlayerSetup] = useState(false)
   const [showScoreboard, setShowScoreboard] = useState(false)
   const [showDailyChallenge, setShowDailyChallenge] = useState(false)
+  const [showChallengeMode, setShowChallengeMode] = useState(false)
+  const [currentChallenge, setCurrentChallenge] = useState(null)
 
   useEffect(() => {
     loadCategories()
@@ -148,6 +152,13 @@ function App() {
             📅 Daily
           </button>
           <button 
+            className="challenge-mode-button"
+            onClick={() => setShowChallengeMode(true)}
+            title="Challenge Mode"
+          >
+            ⚔️ Challenge
+          </button>
+          <button 
             className="scoreboard-button"
             onClick={() => setShowScoreboard(true)}
           >
@@ -200,6 +211,29 @@ function App() {
         <DailyChallenge
           playerId={playerId}
           onClose={() => setShowDailyChallenge(false)}
+        />
+      )}
+
+      {showChallengeMode && !currentChallenge && (
+        <ChallengeMode
+          playerId={playerId}
+          onStartChallenge={(challengeId, roomCode) => {
+            setCurrentChallenge({ challengeId, roomCode })
+            setShowChallengeMode(false)
+          }}
+          onClose={() => setShowChallengeMode(false)}
+        />
+      )}
+
+      {currentChallenge && (
+        <ChallengeRoom
+          challengeId={currentChallenge.challengeId}
+          roomCode={currentChallenge.roomCode}
+          playerId={playerId}
+          onClose={() => setCurrentChallenge(null)}
+          onComplete={() => {
+            // Challenge completed, keep room open to see final results
+          }}
         />
       )}
     </div>

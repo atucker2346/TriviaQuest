@@ -176,7 +176,8 @@
 }
 
 
-.daily-challenge-button {
+.daily-challenge-button,
+.challenge-mode-button {
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
@@ -189,7 +190,16 @@
   color: white;
 }
 
-.daily-challenge-button:hover {
+.daily-challenge-button:hover,
+.challenge-mode-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+}
+
+.challenge-mode-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.challenge-mode-button:hover {
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
