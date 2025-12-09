@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Question from './Question'
+import AnswerFeedback from './AnswerFeedback'
 import './Quiz.css'
 
 function Quiz({ category, questions, onRestart }) {
@@ -7,6 +8,8 @@ function Quiz({ category, questions, onRestart }) {
   const [score, setScore] = useState(0)
   const [selectedAnswers, setSelectedAnswers] = useState({})
   const [showResults, setShowResults] = useState(false)
+  const [showFeedback, setShowFeedback] = useState(false)
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false)
 
   const currentQuestion = questions[currentQuestionIndex]
   const totalQuestions = questions.length
@@ -19,17 +22,31 @@ function Quiz({ category, questions, onRestart }) {
   }
 
   const handleNext = () => {
+    const selectedAnswer = selectedAnswers[currentQuestionIndex]
+    
+    if (!selectedAnswer) {
+      alert('Please select an answer before continuing')
+      return
+    }
+
+    // Check if answer is correct
+    const isCorrect = selectedAnswer === currentQuestion.correct_answer
+    setIsAnswerCorrect(isCorrect)
+    
+    if (isCorrect) {
+      setScore(score + 1)
+    }
+
+    // Show feedback
+    setShowFeedback(true)
+  }
+
+  const handleContinue = () => {
+    setShowFeedback(false)
+    
     if (currentQuestionIndex < totalQuestions - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1)
     } else {
-      // Calculate final score
-      let finalScore = 0
-      questions.forEach((q, index) => {
-        if (selectedAnswers[index] === q.correct_answer) {
-          finalScore++
-        }
-      })
-      setScore(finalScore)
       setShowResults(true)
     }
   }
@@ -60,6 +77,14 @@ function Quiz({ category, questions, onRestart }) {
 
   return (
     <div className="quiz-container">
+      {showFeedback && (
+        <AnswerFeedback
+          isCorrect={isAnswerCorrect}
+          correctAnswer={currentQuestion.correct_answer}
+          onContinue={handleContinue}
+        />
+      )}
+      
       <div className="quiz-header">
         <h2>{category}</h2>
         <div className="progress-bar">
