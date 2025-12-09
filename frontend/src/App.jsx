@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
-import { fetchCategories, fetchQuestions } from './services/api'
+import { fetchCategories, fetchQuestions, registerPlayer } from './services/api'
 import CategorySelection from './components/CategorySelection'
 import Quiz from './components/Quiz'
+import PlayerSetup from './components/PlayerSetup'
+import Scoreboard from './components/Scoreboard'
 import './App.css'
 
 function App() {
@@ -10,10 +12,24 @@ function App() {
   const [questions, setQuestions] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [playerId, setPlayerId] = useState(null)
+  const [playerUsername, setPlayerUsername] = useState(null)
+  const [showPlayerSetup, setShowPlayerSetup] = useState(false)
+  const [showScoreboard, setShowScoreboard] = useState(false)
 
   useEffect(() => {
     loadCategories()
+    loadPlayerFromStorage()
   }, [])
+
+  const loadPlayerFromStorage = () => {
+    const storedPlayerId = localStorage.getItem('playerId')
+    const storedUsername = localStorage.getItem('playerUsername')
+    if (storedPlayerId && storedUsername) {
+      setPlayerId(parseInt(storedPlayerId))
+      setPlayerUsername(storedUsername)
+    }
+  }
 
   const loadCategories = async () => {
     try {
@@ -49,6 +65,32 @@ function App() {
     setQuestions([])
   }
 
+  const handleSetPlayer = async (username) => {
+    if (!username) {
+      // User skipped
+      setShowPlayerSetup(false)
+      return
+    }
+
+    try {
+      const data = await registerPlayer(username)
+      setPlayerId(data.player_id)
+      setPlayerUsername(data.username)
+      localStorage.setItem('playerId', data.player_id.toString())
+      localStorage.setItem('playerUsername', data.username)
+      setShowPlayerSetup(false)
+    } catch (err) {
+      alert('Failed to register player: ' + err.message)
+    }
+  }
+
+  const handleLogout = () => {
+    setPlayerId(null)
+    setPlayerUsername(null)
+    localStorage.removeItem('playerId')
+    localStorage.removeItem('playerUsername')
+  }
+
   if (loading && !selectedCategory) {
     return (
       <div className="app-container">
@@ -68,9 +110,47 @@ function App() {
     )
   }
 
+  if (showPlayerSetup) {
+    return (
+      <div className="app-container">
+        <h1 className="app-title">TriviaQuest</h1>
+        <PlayerSetup onSetPlayer={handleSetPlayer} />
+      </div>
+    )
+  }
+
   return (
     <div className="app-container">
-      <h1 className="app-title">TriviaQuest</h1>
+      <div className="app-header">
+        <h1 className="app-title">TriviaQuest</h1>
+        <div className="app-controls">
+          <button 
+            className="scoreboard-button"
+            onClick={() => setShowScoreboard(true)}
+          >
+            🏆 Leaderboard
+          </button>
+          {playerUsername ? (
+            <div className="player-info">
+              <span className="player-name">👤 {playerUsername}</span>
+              <button 
+                className="logout-button"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <button 
+              className="login-button"
+              onClick={() => setShowPlayerSetup(true)}
+            >
+              Set Username
+            </button>
+          )}
+        </div>
+      </div>
+
       {!selectedCategory ? (
         <CategorySelection
           categories={categories}
@@ -82,6 +162,14 @@ function App() {
           category={selectedCategory}
           questions={questions}
           onRestart={handleRestart}
+          playerId={playerId}
+        />
+      )}
+
+      {showScoreboard && (
+        <Scoreboard
+          playerId={playerId}
+          onClose={() => setShowScoreboard(false)}
         />
       )}
     </div>
@@ -89,4 +177,3 @@ function App() {
 }
 
 export default App
-

@@ -6,13 +6,86 @@
   min-height: 500px;
 }
 
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
 .app-title {
-  text-align: center;
   color: #667eea;
   font-size: 3rem;
-  margin-bottom: 30px;
+  margin: 0;
   font-weight: 700;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.scoreboard-button,
+.login-button,
+.logout-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.scoreboard-button {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.scoreboard-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+}
+
+.login-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.player-info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 8px 15px;
+  border-radius: 8px;
+}
+
+.player-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.logout-button {
+  background: #e74c3c;
+  color: white;
+  padding: 6px 15px;
+  font-size: 0.9rem;
+}
+
+.logout-button:hover {
+  background: #c0392b;
+  transform: translateY(-1px);
 }
 
 .loading,
@@ -44,3 +117,28 @@
   background: #5568d3;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 20px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .app-title {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .app-controls {
+    flex-direction: column;
+  }
+
+  .player-info {
+    flex-direction: column;
+    text-align: center;
+  }
+}
