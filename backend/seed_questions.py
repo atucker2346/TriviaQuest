@@ -21,9 +21,9 @@ for name in categories:
 cursor.execute("SELECT id, name FROM categories")
 category_map = {name: cid for cid, name in cursor.fetchall()}
 
-# Sample questions - 10 per category
+# Sample questions - 40 per category
 sample_questions = [
-    # General Knowledge (10 questions)
+    # General Knowledge (40 questions)
     {
         "category": "General Knowledge",
         "question": "What is the capital of France?",
@@ -84,8 +84,188 @@ sample_questions = [
         "choices": ["Yuan", "Won", "Yen", "Ringgit"],
         "correct": "Yen"
     },
+    {
+        "category": "General Knowledge",
+        "question": "What mythical creature is said to guard a pot of gold at the end of a rainbow?",
+        "choices": ["Fairy", "Leprechaun", "Gnome", "Elf"],
+        "correct": "Leprechaun"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which month has an extra day during a leap year?",
+        "choices": ["January", "February", "March", "April"],
+        "correct": "February"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which animal is known as the 'King of the Jungle'?",
+        "choices": ["Tiger", "Bear", "Lion", "Leopard"],
+        "correct": "Lion"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which continent is home to the Amazon Rainforest?",
+        "choices": ["Africa", "South America", "Asia", "Australia"],
+        "correct": "South America"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "What is the name of the fairy in Peter Pan?",
+        "choices": ["Tinker Bell", "Fawn", "Iridessa", "Silvermist"],
+        "correct": "Tinker Bell"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which bird is known for being able to mimic human speech?",
+        "choices": ["Crow", "Parrot", "Sparrow", "Owl"],
+        "correct": "Parrot"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which country is famous for inventing pizza?",
+        "choices": ["France", "Italy", "Greece", "Spain"],
+        "correct": "Italy"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "What is the tallest animal in the world?",
+        "choices": ["Elephant", "Giraffe", "Horse", "Camel"],
+        "correct": "Giraffe"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "What natural disaster is measured using the Richter scale?",
+        "choices": ["Hurricanes", "Earthquakes", "Tornadoes", "Floods"],
+        "correct": "Earthquakes"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which fruit is known as the 'king of fruits' in many Asian countries?",
+        "choices": ["Mango", "Pineapple", "Durian", "Papaya"],
+        "correct": "Durian"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which everyday tool did the ancient Egyptians invent?",
+        "choices": ["Hammer", "Toothpaste", "Pencil", "Screwdriver"],
+        "correct": "Toothpaste"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "What is the most widely spoken language in the world?",
+        "choices": ["English", "Spanish", "Mandarin Chinese", "Hindi"],
+        "correct": "Mandarin Chinese"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "What geometric shape is a STOP sign?",
+        "choices": ["Hexagon", "Octagon", "Pentagon", "Heptagon"],
+        "correct": "Octagon"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which animal sleeps up to 22 hours a day?",
+        "choices": ["Koala", "Sloth", "Cat", "Bat"],
+        "correct": "Koala"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which organ helps humans breathe?",
+        "choices": ["Heart", "Liver", "Lungs", "Kidneys"],
+        "correct": "Lungs"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "What is the primary ingredient in guacamole?",
+        "choices": ["Avocado", "Cucumber", "Lettuce", "Peas"],
+        "correct": "Avocado"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which continent has the most countries?",
+        "choices": ["Asia", "Africa", "Europe", "South America"],
+        "correct": "Africa"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "What is a baby kangaroo called?",
+        "choices": ["Cub", "Joey", "Fawn", "Calf"],
+        "correct": "Joey"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which famous scientist developed the theory of relativity?",
+        "choices": ["Isaac Newton", "Albert Einstein", "Nikola Tesla", "Marie Curie"],
+        "correct": "Albert Einstein"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "What is the fastest land animal?",
+        "choices": ["Cheetah", "Lion", "Horse", "Falcon"],
+        "correct": "Cheetah"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which musical instrument has black and white keys?",
+        "choices": ["Guitar", "Piano", "Violin", "Flute"],
+        "correct": "Piano"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "What is the boiling point of water in Celsius?",
+        "choices": ["50°C", "75°C", "90°C", "100°C"],
+        "correct": "100°C"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which animal can rotate its head nearly 270 degrees?",
+        "choices": ["Eagle", "Owl", "Hawk", "Falcon"],
+        "correct": "Owl"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "How many colors are there in a traditional rainbow?",
+        "choices": ["5", "6", "7", "8"],
+        "correct": "7"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which country is known for giving the world sushi?",
+        "choices": ["China", "Japan", "Thailand", "South Korea"],
+        "correct": "Japan"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "What do you call a group of lions?",
+        "choices": ["Pack", "Pride", "Herd", "Flock"],
+        "correct": "Pride"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which organ pumps blood throughout the body?",
+        "choices": ["Liver", "Heart", "Brain", "Kidneys"],
+        "correct": "Heart"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which instrument is used to measure temperature?",
+        "choices": ["Thermometer", "Barometer", "Hygrometer", "Speedometer"],
+        "correct": "Thermometer"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which planet has a giant red storm known as the Great Red Spot?",
+        "choices": ["Mars", "Jupiter", "Saturn", "Uranus"],
+        "correct": "Jupiter"
+    },
+    {
+        "category": "General Knowledge",
+        "question": "Which creature is known for changing its color to camouflage?",
+        "choices": ["Frog", "Lizard", "Chameleon", "Snake"],
+        "correct": "Chameleon"
+    },
     
-    # Science (10 questions)
+    # Science (40 questions)
     {
         "category": "Science",
         "question": "What planet is known as the Red Planet?",
@@ -145,6 +325,186 @@ sample_questions = [
         "question": "What type of animal is a dolphin?",
         "choices": ["Fish", "Amphibian", "Mammal", "Reptile"],
         "correct": "Mammal"
+    },
+    {
+        "category": "Science",
+        "question": "What force keeps planets in orbit around the Sun?",
+        "choices": ["Magnetism", "Gravity", "Friction", "Electricity"],
+        "correct": "Gravity"
+    },
+    {
+        "category": "Science",
+        "question": "What is the powerhouse of the cell?",
+        "choices": ["Ribosome", "Nucleus", "Mitochondria", "Golgi Apparatus"],
+        "correct": "Mitochondria"
+    },
+    {
+        "category": "Science",
+        "question": "What part of the human eye controls how much light enters?",
+        "choices": ["Cornea", "Iris", "Retina", "Lens"],
+        "correct": "Iris"
+    },
+    {
+        "category": "Science",
+        "question": "What do bees collect from flowers to make honey?",
+        "choices": ["Water", "Nectar", "Pollen", "Sap"],
+        "correct": "Nectar"
+    },
+    {
+        "category": "Science",
+        "question": "What is the largest organ in the human body?",
+        "choices": ["Heart", "Liver", "Skin", "Lungs"],
+        "correct": "Skin"
+    },
+    {
+        "category": "Science",
+        "question": "What kind of energy is stored in food?",
+        "choices": ["Thermal energy", "Kinetic energy", "Chemical energy", "Solar energy"],
+        "correct": "Chemical energy"
+    },
+    {
+        "category": "Science",
+        "question": "Which planet has the most moons?",
+        "choices": ["Mars", "Jupiter", "Neptune", "Saturn"],
+        "correct": "Saturn"
+    },
+    {
+        "category": "Science",
+        "question": "What is the process by which plants release oxygen?",
+        "choices": ["Transpiration", "Photosynthesis", "Respiration", "Fermentation"],
+        "correct": "Photosynthesis"
+    },
+    {
+        "category": "Science",
+        "question": "Which scientist proposed the three laws of motion?",
+        "choices": ["Albert Einstein", "Isaac Newton", "Nikola Tesla", "Galileo Galilei"],
+        "correct": "Isaac Newton"
+    },
+    {
+        "category": "Science",
+        "question": "What is the most common element in the universe?",
+        "choices": ["Oxygen", "Hydrogen", "Helium", "Carbon"],
+        "correct": "Hydrogen"
+    },
+    {
+        "category": "Science",
+        "question": "What device is used to measure earthquakes?",
+        "choices": ["Barometer", "Seismograph", "Thermometer", "Hygrometer"],
+        "correct": "Seismograph"
+    },
+    {
+        "category": "Science",
+        "question": "What type of cloud is associated with thunderstorms?",
+        "choices": ["Cirrus", "Stratus", "Cumulonimbus", "Altostratus"],
+        "correct": "Cumulonimbus"
+    },
+    {
+        "category": "Science",
+        "question": "Which vitamin do humans produce when exposed to sunlight?",
+        "choices": ["Vitamin A", "Vitamin C", "Vitamin D", "Vitamin B12"],
+        "correct": "Vitamin D"
+    },
+    {
+        "category": "Science",
+        "question": "How many chromosomes do humans typically have?",
+        "choices": ["42", "44", "46", "48"],
+        "correct": "46"
+    },
+    {
+        "category": "Science",
+        "question": "What gas do humans exhale?",
+        "choices": ["Oxygen", "Carbon Dioxide", "Helium", "Nitrogen"],
+        "correct": "Carbon Dioxide"
+    },
+    {
+        "category": "Science",
+        "question": "What part of the brain controls balance and coordination?",
+        "choices": ["Cerebrum", "Cerebellum", "Brainstem", "Hypothalamus"],
+        "correct": "Cerebellum"
+    },
+    {
+        "category": "Science",
+        "question": "Which metal is liquid at room temperature besides mercury?",
+        "choices": ["Sodium", "Gallium", "Aluminum", "Copper"],
+        "correct": "Gallium"
+    },
+    {
+        "category": "Science",
+        "question": "What kind of waves are used in microwave ovens?",
+        "choices": ["Radio waves", "X-rays", "Gamma rays", "Ultraviolet waves"],
+        "correct": "Radio waves"
+    },
+    {
+        "category": "Science",
+        "question": "What is the term for animals that eat only plants?",
+        "choices": ["Carnivores", "Herbivores", "Omnivores", "Detritivores"],
+        "correct": "Herbivores"
+    },
+    {
+        "category": "Science",
+        "question": "What part of Earth lies beneath the crust?",
+        "choices": ["Core", "Mantle", "Lithosphere", "Asthenosphere"],
+        "correct": "Mantle"
+    },
+    {
+        "category": "Science",
+        "question": "What is the name for molten rock beneath Earth’s surface?",
+        "choices": ["Lava", "Magma", "Basalt", "Obsidian"],
+        "correct": "Magma"
+    },
+    {
+        "category": "Science",
+        "question": "Which blood type is considered the universal donor?",
+        "choices": ["A", "AB", "O-", "O+"],
+        "correct": "O-"
+    },
+    {
+        "category": "Science",
+        "question": "Which gas makes up most of the Sun?",
+        "choices": ["Hydrogen", "Nitrogen", "Carbon", "Helium"],
+        "correct": "Hydrogen"
+    },
+    {
+        "category": "Science",
+        "question": "What do you call a scientist who studies rocks?",
+        "choices": ["Biologist", "Chemist", "Geologist", "Meteorologist"],
+        "correct": "Geologist"
+    },
+    {
+        "category": "Science",
+        "question": "How long does Earth take to orbit the Sun?",
+        "choices": ["24 hours", "30 days", "365 days", "730 days"],
+        "correct": "365 days"
+    },
+    {
+        "category": "Science",
+        "question": "What is the primary gas in Earth’s ozone layer?",
+        "choices": ["Ozone", "Oxygen", "Carbon Dioxide", "Hydrogen"],
+        "correct": "Ozone"
+    },
+    {
+        "category": "Science",
+        "question": "Which organ pumps blood throughout the human body?",
+        "choices": ["Liver", "Lungs", "Heart", "Kidneys"],
+        "correct": "Heart"
+    },
+    {
+        "category": "Science",
+        "question": "What phenomenon causes the sky to appear blue?",
+        "choices": ["Reflection", "Refraction", "Rayleigh Scattering", "Absorption"],
+        "correct": "Rayleigh Scattering"
+    },
+    {
+        "category": "Science",
+        "question": "What type of animal lays eggs but is not a bird?",
+        "choices": ["Whale", "Kangaroo", "Platypus", "Bat"],
+        "correct": "Platypus"
+    },
+    {
+        "category": "Science",
+        "question": "What instrument is used to view very small objects like cells?",
+        "choices": ["Telescope", "Periscope", "Microscope", "Endoscope"],
+        "correct": "Microscope"
     },
     
     # History (40 questions)
@@ -630,8 +990,188 @@ sample_questions = [
         "choices": ["Twitter", "Instagram", "Facebook", "LinkedIn"],
         "correct": "Facebook"
     },
-    
-    # Sports (10 questions)
+    {
+        "category": "Pop Culture",
+        "question": "Which artist created the viral hit 'Blinding Lights'?",
+        "choices": ["The Weeknd", "Drake", "Post Malone", "Justin Bieber"],
+        "correct": "The Weeknd"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which animated series features the characters Finn and Jake?",
+        "choices": ["Adventure Time", "Steven Universe", "Regular Show", "Gravity Falls"],
+        "correct": "Adventure Time"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Who hosted the TV show 'The Oprah Winfrey Show'?",
+        "choices": ["Ellen DeGeneres", "Oprah Winfrey", "Wendy Williams", "Tyra Banks"],
+        "correct": "Oprah Winfrey"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which musician is known for the album 'Thriller'?",
+        "choices": ["Prince", "Michael Jackson", "James Brown", "Stevie Wonder"],
+        "correct": "Michael Jackson"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which video game franchise features the character Master Chief?",
+        "choices": ["Halo", "Destiny", "Mass Effect", "Call of Duty"],
+        "correct": "Halo"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "What is the name of Beyoncé's fanbase?",
+        "choices": ["Swifties", "Barbz", "Beehive", "Navy"],
+        "correct": "Beehive"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Who voices Donkey in the 'Shrek' movie franchise?",
+        "choices": ["Eddie Murphy", "Kevin Hart", "Chris Rock", "Will Smith"],
+        "correct": "Eddie Murphy"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which Netflix series made the red jumpsuit and Salvador Dali mask iconic?",
+        "choices": ["Money Heist", "Dark", "Narcos", "Elite"],
+        "correct": "Money Heist"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Who created the Marvel character Black Panther?",
+        "choices": ["Stan Lee & Jack Kirby", "Steve Ditko", "Frank Miller", "Todd McFarlane"],
+        "correct": "Stan Lee & Jack Kirby"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which singer released the hit song 'Bad Romance'?",
+        "choices": ["Lady Gaga", "Rihanna", "Adele", "Katy Perry"],
+        "correct": "Lady Gaga"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which long-running cartoon features a baby named Stewie?",
+        "choices": ["The Simpsons", "Family Guy", "American Dad", "Bob's Burgers"],
+        "correct": "Family Guy"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which rapper is known for the album 'To Pimp a Butterfly'?",
+        "choices": ["Kendrick Lamar", "J. Cole", "Kanye West", "Lil Wayne"],
+        "correct": "Kendrick Lamar"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which fantasy series features dragons and the Iron Throne?",
+        "choices": ["The Witcher", "Game of Thrones", "Shadow and Bone", "The Wheel of Time"],
+        "correct": "Game of Thrones"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "What popular app became famous for short dance and lip-sync videos?",
+        "choices": ["Snapchat", "Vine", "TikTok", "Triller"],
+        "correct": "TikTok"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which 2000s TV show centered around a teenage detective named Veronica?",
+        "choices": ["Buffy the Vampire Slayer", "Veronica Mars", "Pretty Little Liars", "Charmed"],
+        "correct": "Veronica Mars"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which boy band performed the hit 'I Want It That Way'?",
+        "choices": ["NSYNC", "Backstreet Boys", "One Direction", "98 Degrees"],
+        "correct": "Backstreet Boys"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which actress starred as Miranda Priestly in 'The Devil Wears Prada'?",
+        "choices": ["Julia Roberts", "Meryl Streep", "Anne Hathaway", "Sandra Bullock"],
+        "correct": "Meryl Streep"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which video game series includes locations like Vice City and Los Santos?",
+        "choices": ["Saints Row", "Grand Theft Auto", "Cyberpunk", "Watch Dogs"],
+        "correct": "Grand Theft Auto"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which K-pop group released the hit song 'Dynamite'?",
+        "choices": ["BLACKPINK", "EXO", "BTS", "TWICE"],
+        "correct": "BTS"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Who is the creator of the animated series 'Rick and Morty'?",
+        "choices": ["Justin Roiland & Dan Harmon", "Matt Groening", "Mike Judge", "Seth MacFarlane"],
+        "correct": "Justin Roiland & Dan Harmon"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which singer became famous from the Disney show 'Hannah Montana'?",
+        "choices": ["Selena Gomez", "Miley Cyrus", "Demi Lovato", "Ariana Grande"],
+        "correct": "Miley Cyrus"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "What movie features the character Jack Sparrow?",
+        "choices": ["Pirates of the Caribbean", "Hook", "Treasure Island", "Swiss Family Robinson"],
+        "correct": "Pirates of the Caribbean"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which social media platform uses a ghost as its logo?",
+        "choices": ["Instagram", "Snapchat", "Telegram", "Discord"],
+        "correct": "Snapchat"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which musical features the songs 'My Shot' and 'The Room Where It Happens'?",
+        "choices": ["Hamilton", "Les Misérables", "Wicked", "Rent"],
+        "correct": "Hamilton"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Who played the character Black Widow in the Marvel Cinematic Universe?",
+        "choices": ["Scarlett Johansson", "Brie Larson", "Elizabeth Olsen", "Natalie Portman"],
+        "correct": "Scarlett Johansson"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which Pixar movie features the characters Joy, Sadness, and Anger?",
+        "choices": ["Up", "Inside Out", "Monsters Inc.", "Soul"],
+        "correct": "Inside Out"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "What singer released the hit album 'Lemonade' in 2016?",
+        "choices": ["Rihanna", "Nicki Minaj", "Beyoncé", "SZA"],
+        "correct": "Beyoncé"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which show features the quote 'How you doin?'",
+        "choices": ["Friends", "Seinfeld", "The Office", "New Girl"],
+        "correct": "Friends"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which animated movie features a talking snowman named Olaf?",
+        "choices": ["Frozen", "Shrek", "Moana", "Tangled"],
+        "correct": "Frozen"
+    },
+    {
+        "category": "Pop Culture",
+        "question": "Which rapper famously said 'It's lit!' in many of his songs?",
+        "choices": ["Kanye West", "Travis Scott", "Playboi Carti", "Future"],
+        "correct": "Travis Scott"
+    },
+
+    # Sports (40 questions)
     {
         "category": "Sports",
         "question": "How many players are on a standard soccer team on the field?",
@@ -691,6 +1231,186 @@ sample_questions = [
         "question": "Which sport is played at Wimbledon?",
         "choices": ["Golf", "Tennis", "Cricket", "Rugby"],
         "correct": "Tennis"
+    },
+    {
+        "category": "Sports",
+        "question": "Which athlete is known as 'The Fastest Man Alive'?",
+        "choices": ["Tyson Gay", "Usain Bolt", "Yohan Blake", "Asafa Powell"],
+        "correct": "Usain Bolt"
+    },
+    {
+        "category": "Sports",
+        "question": "Which American football team has won the most Super Bowls?",
+        "choices": ["Pittsburgh Steelers", "Dallas Cowboys", "New England Patriots", "San Francisco 49ers"],
+        "correct": "New England Patriots"
+    },
+    {
+        "category": "Sports",
+        "question": "In what sport would you execute a 'hat trick'?",
+        "choices": ["Basketball", "Soccer", "Tennis", "Baseball"],
+        "correct": "Soccer"
+    },
+    {
+        "category": "Sports",
+        "question": "Which NBA player is known as 'King James'?",
+        "choices": ["Kobe Bryant", "Michael Jordan", "LeBron James", "Kevin Durant"],
+        "correct": "LeBron James"
+    },
+    {
+        "category": "Sports",
+        "question": "Which sport uses the terms 'spare' and 'strike'?",
+        "choices": ["Darts", "Bowling", "Cricket", "Baseball"],
+        "correct": "Bowling"
+    },
+    {
+        "category": "Sports",
+        "question": "Which boxer was nicknamed 'The Greatest'?",
+        "choices": ["Mike Tyson", "Muhammad Ali", "Floyd Mayweather", "Joe Frazier"],
+        "correct": "Muhammad Ali"
+    },
+    {
+        "category": "Sports",
+        "question": "Which sport features a pommel horse?",
+        "choices": ["Gymnastics", "Equestrian", "Track and Field", "Powerlifting"],
+        "correct": "Gymnastics"
+    },
+    {
+        "category": "Sports",
+        "question": "Which country hosted the 2016 Summer Olympics?",
+        "choices": ["China", "Brazil", "United Kingdom", "Japan"],
+        "correct": "Brazil"
+    },
+    {
+        "category": "Sports",
+        "question": "Which famous golfer is known for wearing a red shirt on Sundays?",
+        "choices": ["Tiger Woods", "Phil Mickelson", "Rory McIlroy", "Jordan Spieth"],
+        "correct": "Tiger Woods"
+    },
+    {
+        "category": "Sports",
+        "question": "In what sport do athletes compete in the '100-meter butterfly'?",
+        "choices": ["Track and Field", "Swimming", "Cycling", "Rowing"],
+        "correct": "Swimming"
+    },
+    {
+        "category": "Sports",
+        "question": "Which country invented the sport of rugby?",
+        "choices": ["Australia", "Wales", "New Zealand", "England"],
+        "correct": "England"
+    },
+    {
+        "category": "Sports",
+        "question": "What is the maximum score in a single frame of bowling?",
+        "choices": ["20", "30", "40", "50"],
+        "correct": "30"
+    },
+    {
+        "category": "Sports",
+        "question": "Which female tennis player has won the most Grand Slam titles?",
+        "choices": ["Serena Williams", "Martina Navratilova", "Steffi Graf", "Margaret Court"],
+        "correct": "Margaret Court"
+    },
+    {
+        "category": "Sports",
+        "question": "Which NBA team did Michael Jordan play for the longest?",
+        "choices": ["Washington Wizards", "Los Angeles Lakers", "Chicago Bulls", "New York Knicks"],
+        "correct": "Chicago Bulls"
+    },
+    {
+        "category": "Sports",
+        "question": "Which sport includes terms like 'icing' and 'power play'?",
+        "choices": ["Soccer", "Ice Hockey", "Volleyball", "Rugby"],
+        "correct": "Ice Hockey"
+    },
+    {
+        "category": "Sports",
+        "question": "What piece of equipment is essential for fencing?",
+        "choices": ["Bow", "Foil", "Paddle", "Racket"],
+        "correct": "Foil"
+    },
+    {
+        "category": "Sports",
+        "question": "Which country has won the most FIFA Women's World Cups?",
+        "choices": ["Germany", "United States", "Brazil", "Japan"],
+        "correct": "United States"
+    },
+    {
+        "category": "Sports",
+        "question": "What is the term for a baseball player hitting a home run with the bases loaded?",
+        "choices": ["Triple Play", "Grand Slam", "Power Hit", "Four-Run Shot"],
+        "correct": "Grand Slam"
+    },
+    {
+        "category": "Sports",
+        "question": "Which legendary swimmer earned 23 Olympic gold medals?",
+        "choices": ["Ryan Lochte", "Ian Thorpe", "Michael Phelps", "Caeleb Dressel"],
+        "correct": "Michael Phelps"
+    },
+    {
+        "category": "Sports",
+        "question": "Which sport requires a balance beam?",
+        "choices": ["Figure Skating", "Gymnastics", "Diving", "Wrestling"],
+        "correct": "Gymnastics"
+    },
+    {
+        "category": "Sports",
+        "question": "Which soccer player is known as 'CR7'?",
+        "choices": ["Cristiano Ronaldo", "Kylian Mbappé", "Lionel Messi", "Neymar"],
+        "correct": "Cristiano Ronaldo"
+    },
+    {
+        "category": "Sports",
+        "question": "Which sport uses a 'shuttlecock'?",
+        "choices": ["Tennis", "Badminton", "Pickleball", "Squash"],
+        "correct": "Badminton"
+    },
+    {
+        "category": "Sports",
+        "question": "Which country is famous for dominating sumo wrestling?",
+        "choices": ["China", "Japan", "South Korea", "Mongolia"],
+        "correct": "Japan"
+    },
+    {
+        "category": "Sports",
+        "question": "What is the highest score possible in a single turn of darts (using 3 darts)?",
+        "choices": ["120", "150", "180", "200"],
+        "correct": "180"
+    },
+    {
+        "category": "Sports",
+        "question": "Which sport features events like uneven bars and vault?",
+        "choices": ["Track and Field", "Gymnastics", "Swimming", "Cycling"],
+        "correct": "Gymnastics"
+    },
+    {
+        "category": "Sports",
+        "question": "Which NFL quarterback is known as 'The GOAT'?",
+        "choices": ["Peyton Manning", "Tom Brady", "Aaron Rodgers", "Joe Montana"],
+        "correct": "Tom Brady"
+    },
+    {
+        "category": "Sports",
+        "question": "Which sport involves a device called a 'putter'?",
+        "choices": ["Baseball", "Golf", "Cricket", "Hockey"],
+        "correct": "Golf"
+    },
+    {
+        "category": "Sports",
+        "question": "Which country has won the most Olympic gold medals overall?",
+        "choices": ["China", "Russia", "Germany", "United States"],
+        "correct": "United States"
+    },
+    {
+        "category": "Sports",
+        "question": "Which sport uses a rectangular ring and three-minute rounds?",
+        "choices": ["MMA", "Karate", "Boxing", "Kickboxing"],
+        "correct": "Boxing"
+    },
+    {
+        "category": "Sports",
+        "question": "What is the name of the annual championship series in Major League Baseball?",
+        "choices": ["World Series", "Super Cup", "MLB Finals", "Grand Classic"],
+        "correct": "World Series"
     }
 ]
 
