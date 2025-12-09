@@ -4,10 +4,14 @@
 
 .question-text {
   font-size: 1.4rem;
-  color: #333;
+  color: #0b6cff; /* bright blue for light mode */
   margin-bottom: 25px;
   line-height: 1.6;
   font-weight: 600;
+}
+
+[data-theme="dark"] .question-text {
+  color: #9fd3ff; /* softer bright blue for dark mode */
 }
 
 .choices-container {
@@ -30,7 +34,7 @@
 
 .choice-button:hover {
   background: rgba(0, 212, 255, 0.1);
-  border-color: #667eea;
+  border-color: #00D4FF;
   transform: translateX(5px);
   box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
 }
@@ -38,7 +42,7 @@
 .choice-button.selected {
   background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
   color: white;
-  border-color: #667eea;
+  border-color: #00D4FF;
   font-weight: 600;
 }
 
