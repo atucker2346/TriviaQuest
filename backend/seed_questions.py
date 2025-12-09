@@ -147,7 +147,7 @@ sample_questions = [
         "correct": "Mammal"
     },
     
-    # History (10 questions)
+    # History (40 questions)
     {
         "category": "History",
         "question": "Who was the first President of the United States?",
@@ -207,6 +207,366 @@ sample_questions = [
         "question": "What was the name of the first satellite launched into space?",
         "choices": ["Apollo 1", "Sputnik 1", "Explorer 1", "Vanguard 1"],
         "correct": "Sputnik 1"
+    },
+    {
+        "category": "History",
+        "question": "Which ancient empire built the mountain city of Machu Picchu?",
+        "choices": ["Aztec Empire", "Inca Empire", "Mayan Empire", "Roman Empire"],
+        "correct": "Inca Empire"
+    },
+    {
+        "category": "History",
+        "question": "In which century was Japan's samurai class officially abolished by the Meiji government?",
+        "choices": ["16th century", "17th century", "18th century", "19th century"],
+        "correct": "19th century"
+    },
+    {
+        "category": "History",
+        "question": "Which Egyptian queen famously aligned herself with both Julius Caesar and Mark Antony?",
+        "choices": ["Nefertiti", "Cleopatra VII", "Hatshepsut", "Akhenaten"],
+        "correct": "Cleopatra VII"
+    },
+    {
+        "category": "History",
+        "question": "Which Roman city was frozen in time by the eruption of Mount Vesuvius in 79 AD?",
+        "choices": ["Athens", "Carthage", "Pompeii", "Alexandria"],
+        "correct": "Pompeii"
+    },
+    {
+        "category": "History",
+        "question": "Which West African emperor is said to have given away so much gold on his pilgrimage to Mecca that he caused inflation?",
+        "choices": ["Sundiata Keita", "Mansa Musa", "Shaka Zulu", "Haile Selassie"],
+        "correct": "Mansa Musa"
+    },
+    {
+        "category": "History",
+        "question": "What 13th-century document forced King John of England to accept that even a king must follow the law?",
+        "choices": ["Bill of Rights", "Domesday Book", "Magna Carta", "Petition of Right"],
+        "correct": "Magna Carta"
+    },
+    {
+        "category": "History",
+        "question": "Which famously 'unsinkable' ocean liner sank on its first voyage in 1912?",
+        "choices": ["Lusitania", "Titanic", "Olympic", "Britannic"],
+        "correct": "Titanic"
+    },
+    {
+        "category": "History",
+        "question": "Which Roman emperor is legendarily blamed for 'fiddling while Rome burned'?",
+        "choices": ["Augustus", "Nero", "Caligula", "Tiberius"],
+        "correct": "Nero"
+    },
+    {
+        "category": "History",
+        "question": "Which ancient Mesoamerican civilization first turned cacao beans into a chocolate drink for rituals?",
+        "choices": ["Aztecs", "Olmecs", "Mayans", "Toltecs"],
+        "correct": "Mayans"
+    },
+    {
+        "category": "History",
+        "question": "Which massive stone monument in England has puzzled historians with its unknown original purpose?",
+        "choices": ["Hadrian's Wall", "Stonehenge", "Carnac Stones", "Avebury Circle"],
+        "correct": "Stonehenge"
+    },
+    {
+        "category": "History",
+        "question": "Which French king, obsessed with grandeur, was nicknamed the 'Sun King'?",
+        "choices": ["Louis XIII", "Louis XIV", "Louis XV", "Louis XVI"],
+        "correct": "Louis XIV"
+    },
+    {
+        "category": "History",
+        "question": "Which Mongol conqueror stitched together the largest land empire in history?",
+        "choices": ["Kublai Khan", "Genghis Khan", "Tamerlane", "Attila"],
+        "correct": "Genghis Khan"
+    },
+    {
+        "category": "History",
+        "question": "Which ancient library became a symbol of lost knowledge after being destroyed multiple times?",
+        "choices": ["Library of Pergamon", "Library of Alexandria", "Nalanda University", "Celsus Library"],
+        "correct": "Library of Alexandria"
+    },
+    {
+        "category": "History",
+        "question": "Who was the first human to orbit Earth in a spacecraft?",
+        "choices": ["Alan Shepard", "Yuri Gagarin", "John Glenn", "Valentina Tereshkova"],
+        "correct": "Yuri Gagarin"
+    },
+    {
+        "category": "History",
+        "question": "Which early 20th-century pandemic killed more people than World War I?",
+        "choices": ["Asian Flu", "Spanish Flu", "Hong Kong Flu", "Black Death"],
+        "correct": "Spanish Flu"
+    },
+    {
+        "category": "History",
+        "question": "Which civil rights icon refused to give up her bus seat in Montgomery, Alabama, in 1955?",
+        "choices": ["Rosa Parks", "Ella Baker", "Coretta Scott King", "Fannie Lou Hamer"],
+        "correct": "Rosa Parks"
+    },
+    {
+        "category": "History",
+        "question": "Which Indian leader led the 1930 Salt March to protest a British tax?",
+        "choices": ["Jawaharlal Nehru", "Mahatma Gandhi", "Subhas Chandra Bose", "B. R. Ambedkar"],
+        "correct": "Mahatma Gandhi"
+    },
+    {
+        "category": "History",
+        "question": "Which Caribbean nation became the first Black republic after a successful slave revolt in 1804?",
+        "choices": ["Jamaica", "Haiti", "Barbados", "Trinidad and Tobago"],
+        "correct": "Haiti"
+    },
+    {
+        "category": "History",
+        "question": "Which ancient Greek city-state was famous for training boys to be full-time soldiers from childhood?",
+        "choices": ["Athens", "Corinth", "Sparta", "Thebes"],
+        "correct": "Sparta"
+    },
+    {
+        "category": "History",
+        "question": "Which huge fortification was built over centuries to defend China from northern invaders?",
+        "choices": ["Hadrian's Wall", "Great Wall of China", "Berlin Wall", "Wall of Babylon"],
+        "correct": "Great Wall of China"
+    },
+    {
+        "category": "History",
+        "question": "Which 1815 battle finally ended Napoleon Bonaparte's comeback attempt?",
+        "choices": ["Battle of Trafalgar", "Battle of Leipzig", "Battle of Waterloo", "Battle of Austerlitz"],
+        "correct": "Battle of Waterloo"
+    },
+    {
+        "category": "History",
+        "question": "Which country's 1789 revolution turned King Louis XVI's monarchy into a cautionary tale?",
+        "choices": ["Spain", "France", "Russia", "Prussia"],
+        "correct": "France"
+    },
+    {
+        "category": "History",
+        "question": "Which famous U.S. landmark was a giant green gift from France, completed in 1886?",
+        "choices": ["Mount Rushmore", "Statue of Liberty", "Golden Gate Bridge", "Lincoln Memorial"],
+        "correct": "Statue of Liberty"
+    },
+    {
+        "category": "History",
+        "question": "Which astronaut left the first human footprints on the Moon in 1969?",
+        "choices": ["Buzz Aldrin", "Yuri Gagarin", "Neil Armstrong", "Michael Collins"],
+        "correct": "Neil Armstrong"
+    },
+    {
+        "category": "History",
+        "question": "Which country launched the first artificial satellite, Sputnik 1, in 1957?",
+        "choices": ["United States", "Soviet Union", "China", "United Kingdom"],
+        "correct": "Soviet Union"
+    },
+    {
+        "category": "History",
+        "question": "Which empire's soldiers in the American Revolution were nicknamed 'Redcoats' for their uniforms?",
+        "choices": ["French Empire", "Spanish Empire", "British Empire", "Dutch Republic"],
+        "correct": "British Empire"
+    },
+    {
+        "category": "History",
+        "question": "Which African country defeated Italy at the Battle of Adwa in 1896 and avoided colonization?",
+        "choices": ["Nigeria", "Ethiopia", "Kenya", "Ghana"],
+        "correct": "Ethiopia"
+    },
+    {
+        "category": "History",
+        "question": "Which legendary English outlaw is said to have robbed the rich to help the poor in Sherwood Forest?",
+        "choices": ["King Arthur", "Robin Hood", "Guy Fawkes", "William Wallace"],
+        "correct": "Robin Hood"
+    },
+    {
+        "category": "History",
+        "question": "Which Chicago crime boss turned Prohibition-era bootlegging into a criminal empire in the 1920s?",
+        "choices": ["Bugsy Siegel", "John Dillinger", "Al Capone", "Lucky Luciano"],
+        "correct": "Al Capone"
+    },
+    {
+        "category": "History",
+        "question": "Which decade is famously known as the 'Roaring Twenties' for its jazz, flappers, and speakeasies?",
+        "choices": ["1900s", "1910s", "1920s", "1930s"],
+        "correct": "1920s"
+    },
+    {
+        "category": "History",
+        "question": "Which ancient civilization carved giant stone heads on Easter Island?",
+        "choices": ["Inca", "Rapa Nui", "Maya", "Polynesians"],
+        "correct": "Rapa Nui"
+    },
+    {
+        "category": "History",
+        "question": "Which medieval leader united the Franks and was crowned the first Holy Roman Emperor?",
+        "choices": ["Charlemagne", "Clovis I", "Frederick II", "William the Conqueror"],
+        "correct": "Charlemagne"
+    },
+    {
+        "category": "History",
+        "question": "Which empire constructed the world's first known postal system?",
+        "choices": ["Roman Empire", "Persian Empire", "Ottoman Empire", "Byzantine Empire"],
+        "correct": "Persian Empire"
+    },
+    {
+        "category": "History",
+        "question": "Which Chinese dynasty built most of the Grand Canal connecting northern and southern China?",
+        "choices": ["Tang Dynasty", "Song Dynasty", "Sui Dynasty", "Han Dynasty"],
+        "correct": "Sui Dynasty"
+    },
+    {
+        "category": "History",
+        "question": "Which war was sparked by the assassination of Archduke Franz Ferdinand?",
+        "choices": ["World War II", "Crimean War", "World War I", "Franco-Prussian War"],
+        "correct": "World War I"
+    },
+    {
+        "category": "History",
+        "question": "Which famous female pharaoh wore a false beard to legitimize her rule?",
+        "choices": ["Cleopatra VII", "Hatshepsut", "Nefertiti", "Sobekneferu"],
+        "correct": "Hatshepsut"
+    },
+    {
+        "category": "History",
+        "question": "Which explorer completed the first recorded circumnavigation of the globe?",
+        "choices": ["Christopher Columbus", "Ferdinand Magellan", "Marco Polo", "James Cook"],
+        "correct": "Ferdinand Magellan"
+    },
+    {
+        "category": "History",
+        "question": "Which ancient city was home to the legendary Hanging Gardens?",
+        "choices": ["Babylon", "Nineveh", "Ur", "Jericho"],
+        "correct": "Babylon"
+    },
+    {
+        "category": "History",
+        "question": "Which North American civilization built the cliff dwellings at Mesa Verde?",
+        "choices": ["Ancestral Puebloans", "Iroquois", "Cherokee", "Aztecs"],
+        "correct": "Ancestral Puebloans"
+    },
+    {
+        "category": "History",
+        "question": "Which medieval conflict was fought between the houses of Lancaster and York?",
+        "choices": ["Hundred Years' War", "War of the Roses", "Crusades", "Norman Conquest"],
+        "correct": "War of the Roses"
+    },
+    {
+        "category": "History",
+        "question": "Which African kingdom was known for its powerful female warriors, the Agojie?",
+        "choices": ["Axum", "Mali Empire", "Dahomey Kingdom", "Zimbabwe Kingdom"],
+        "correct": "Dahomey Kingdom"
+    },
+    {
+        "category": "History",
+        "question": "Which leader introduced the policy of Perestroika in the late Soviet Union?",
+        "choices": ["Joseph Stalin", "Leonid Brezhnev", "Mikhail Gorbachev", "Nikita Khrushchev"],
+        "correct": "Mikhail Gorbachev"
+    },
+    {
+        "category": "History",
+        "question": "Which Italian city-state was ruled by the powerful Medici family during the Renaissance?",
+        "choices": ["Rome", "Venice", "Florence", "Naples"],
+        "correct": "Florence"
+    },
+    {
+        "category": "History",
+        "question": "Which American abolitionist led hundreds of enslaved people to freedom via the Underground Railroad?",
+        "choices": ["Frederick Douglass", "Harriet Tubman", "Sojourner Truth", "Nat Turner"],
+        "correct": "Harriet Tubman"
+    },
+    {
+        "category": "History",
+        "question": "Which battle marked the start of the American Revolutionary War?",
+        "choices": ["Lexington and Concord", "Bunker Hill", "Yorktown", "Trenton"],
+        "correct": "Lexington and Concord"
+    },
+    {
+        "category": "History",
+        "question": "Which Chinese admiral commanded massive treasure fleets during the Ming Dynasty?",
+        "choices": ["Sun Tzu", "Qin Shi Huang", "Zheng He", "Kublai Khan"],
+        "correct": "Zheng He"
+    },
+    {
+        "category": "History",
+        "question": "Which European event wiped out nearly one-third of the population in the 14th century?",
+        "choices": ["Great Famine", "Black Death", "Hundred Years' War", "Little Ice Age"],
+        "correct": "Black Death"
+    },
+    {
+        "category": "History",
+        "question": "Which ancient African kingdom built the Great Zimbabwe stone structures?",
+        "choices": ["Benin Kingdom", "Nubia", "Zimbabwe Kingdom", "Mali Empire"],
+        "correct": "Zimbabwe Kingdom"
+    },
+    {
+        "category": "History",
+        "question": "Which empire used quipus—knotted strings—to record information?",
+        "choices": ["Inca Empire", "Maya Empire", "Olmec Empire", "Aztec Empire"],
+        "correct": "Inca Empire"
+    },
+    {
+        "category": "History",
+        "question": "Which famous Viking is credited with reaching North America around 1000 AD?",
+        "choices": ["Erik the Red", "Harald Bluetooth", "Ragnar Lothbrok", "Leif Erikson"],
+        "correct": "Leif Erikson"
+    },
+    {
+        "category": "History",
+        "question": "Which ancient civilization built the city of Petra, carved directly into red sandstone cliffs?",
+        "choices": ["Assyrians", "Nabataeans", "Phoenicians", "Persians"],
+        "correct": "Nabataeans"
+    },
+    {
+        "category": "History",
+        "question": "Which European explorer claimed Canada for France in the 16th century?",
+        "choices": ["Henry Hudson", "Samuel de Champlain", "Jacques Cartier", "John Cabot"],
+        "correct": "Jacques Cartier"
+    },
+    {
+        "category": "History",
+        "question": "Which early civilization developed cuneiform, one of the world's first writing systems?",
+        "choices": ["Babylonians", "Sumerians", "Hittites", "Phoenicians"],
+        "correct": "Sumerians"
+    },
+    {
+        "category": "History",
+        "question": "Which English queen's 45-year reign oversaw the defeat of the Spanish Armada?",
+        "choices": ["Elizabeth I", "Mary I", "Anne", "Victoria"],
+        "correct": "Elizabeth I"
+    },
+    {
+        "category": "History",
+        "question": "Which empire used elite soldiers known as Janissaries?",
+        "choices": ["Ottoman Empire", "Mughal Empire", "Persian Empire", "Byzantine Empire"],
+        "correct": "Ottoman Empire"
+    },
+    {
+        "category": "History",
+        "question": "Which ancient city was famous for its Cyclopean walls, supposedly built by giants?",
+        "choices": ["Memphis", "Knossos", "Mycenae", "Troy"],
+        "correct": "Mycenae"
+    },
+    {
+        "category": "History",
+        "question": "Which Native American leader united tribes in resistance during Tecumseh's War?",
+        "choices": ["Crazy Horse", "Sitting Bull", "Tecumseh", "Geronimo"],
+        "correct": "Tecumseh"
+    },
+    {
+        "category": "History",
+        "question": "Which Asian kingdom built Angkor Wat, the largest religious monument in the world?",
+        "choices": ["Khmer Empire", "Ayutthaya Kingdom", "Champa Kingdom", "Srivijaya Empire"],
+        "correct": "Khmer Empire"
+    },
+    {
+        "category": "History",
+        "question": "Which Renaissance artist painted the ceiling of the Sistine Chapel?",
+        "choices": ["Raphael", "Michelangelo", "Leonardo da Vinci", "Donatello"],
+        "correct": "Michelangelo"
+    },
+    {
+        "category": "History",
+        "question": "Which South American revolutionary helped liberate multiple countries from Spanish rule?",
+        "choices": ["Pancho Villa", "Che Guevara", "Simón Bolívar", "José Martí"],
+        "correct": "Simón Bolívar"
     },
     
     # Pop Culture (10 questions)
