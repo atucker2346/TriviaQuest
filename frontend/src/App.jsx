@@ -79,7 +79,7 @@ function App() {
     if (!username) {
       // User skipped
       setShowPlayerSetup(false)
-      return { success: true, skipped: true }
+      return
     }
 
     try {
@@ -89,11 +89,8 @@ function App() {
       localStorage.setItem('playerId', data.player_id.toString())
       localStorage.setItem('playerUsername', data.username)
       setShowPlayerSetup(false)
-      return { success: true }
     } catch (err) {
-      // Keep the dialog open so user can retry
-      setShowPlayerSetup(true)
-      throw err
+      alert('Failed to register player: ' + err.message)
     }
   }
 
@@ -182,6 +179,7 @@ function App() {
           categories={categories}
           onSelect={handleCategorySelect}
           loading={loading}
+          onBack={() => setShowHomeScreen(true)}
         />
       ) : (
         <Quiz
@@ -189,6 +187,7 @@ function App() {
           questions={questions}
           onRestart={handleRestart}
           playerId={playerId}
+          onBack={handleRestart}
         />
       )}
 
