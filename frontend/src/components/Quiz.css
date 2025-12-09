@@ -84,7 +84,14 @@
 .quiz-results h2 {
   color: #333;
   font-size: 2.5rem;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+.result-message {
+  font-size: 1.5rem;
+  color: #667eea;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
 .score-display {
@@ -111,6 +118,17 @@
   margin: 20px 0;
 }
 
+.score-saved-message {
+  color: #27ae60;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 20px 0;
+  padding: 10px 20px;
+  background-color: #d4edda;
+  border-radius: 6px;
+  display: inline-block;
+}
+
 .restart-button {
   margin-top: 30px;
   padding: 15px 40px;
@@ -128,4 +146,3 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
-

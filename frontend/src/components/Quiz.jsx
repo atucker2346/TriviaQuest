@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import Question from './Question'
 import AnswerFeedback from './AnswerFeedback'
+import { submitScore } from '../services/api'
 import './Quiz.css'
 
-function Quiz({ category, questions, onRestart }) {
+function Quiz({ category, questions, onRestart, playerId }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
   const [selectedAnswers, setSelectedAnswers] = useState({})
   const [showResults, setShowResults] = useState(false)
   const [showFeedback, setShowFeedback] = useState(false)
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false)
+  const [scoreSubmitted, setScoreSubmitted] = useState(false)
 
   const currentQuestion = questions[currentQuestionIndex]
   const totalQuestions = questions.length
@@ -23,31 +25,52 @@ function Quiz({ category, questions, onRestart }) {
 
   const handleNext = () => {
     const selectedAnswer = selectedAnswers[currentQuestionIndex]
-    
+
     if (!selectedAnswer) {
       alert('Please select an answer before continuing')
       return
     }
 
-    // Check if answer is correct
     const isCorrect = selectedAnswer === currentQuestion.correct_answer
     setIsAnswerCorrect(isCorrect)
-    
+
     if (isCorrect) {
       setScore(score + 1)
     }
 
-    // Show feedback
     setShowFeedback(true)
   }
 
-  const handleContinue = () => {
+  const calculateScore = () => {
+    let total = 0
+    questions.forEach((q, index) => {
+      if (selectedAnswers[index] === q.correct_answer) {
+        total++
+      }
+    })
+    return total
+  }
+
+  const handleContinue = async () => {
     setShowFeedback(false)
-    
-    if (currentQuestionIndex < totalQuestions - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1)
-    } else {
+
+    const isLastQuestion = currentQuestionIndex >= totalQuestions - 1
+
+    if (isLastQuestion) {
+      const finalScore = calculateScore()
+      setScore(finalScore)
       setShowResults(true)
+
+      if (playerId && !scoreSubmitted) {
+        try {
+          await submitScore(playerId, category, finalScore, totalQuestions)
+          setScoreSubmitted(true)
+        } catch (error) {
+          console.error('Failed to submit score:', error)
+        }
+      }
+    } else {
+      setCurrentQuestionIndex(currentQuestionIndex + 1)
     }
   }
 
@@ -58,16 +81,37 @@ function Quiz({ category, questions, onRestart }) {
   }
 
   if (showResults) {
+    const percentage = Math.round((score / totalQuestions) * 100)
+    let message = ''
+
+    if (percentage === 100) {
+      message = '🎉 Perfect Score! Amazing!'
+    } else if (percentage >= 80) {
+      message = '🌟 Excellent work!'
+    } else if (percentage >= 60) {
+      message = '👍 Good job!'
+    } else if (percentage >= 40) {
+      message = '📚 Keep practicing!'
+    } else {
+      message = '💪 Don\'t give up!'
+    }
+
     return (
       <div className="quiz-results">
         <h2>Quiz Complete!</h2>
+        <div className="result-message">{message}</div>
         <div className="score-display">
           <div className="score-number">{score}</div>
           <div className="score-label">out of {totalQuestions}</div>
         </div>
         <div className="score-percentage">
-          {Math.round((score / totalQuestions) * 100)}%
+          {percentage}%
         </div>
+        {playerId && scoreSubmitted && (
+          <div className="score-saved-message">
+            ✓ Score saved to your profile
+          </div>
+        )}
         <button onClick={onRestart} className="restart-button">
           Play Again
         </button>
@@ -84,7 +128,7 @@ function Quiz({ category, questions, onRestart }) {
           onContinue={handleContinue}
         />
       )}
-      
+
       <div className="quiz-header">
         <h2>{category}</h2>
         <div className="progress-bar">
