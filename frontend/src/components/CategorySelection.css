@@ -3,8 +3,10 @@
 }
 
 .category-selection h2 {
-  color: #333;
+  color: #0066CC;
   margin-bottom: 30px;
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
 .category-header h2 {
@@ -41,6 +43,10 @@
 }
 
 /* Dark Mode Support */
+[data-theme="dark"] .category-selection h2 {
+  color: #9fd3ff;
+}
+
 [data-theme="dark"] .category-header h2 {
   color: #e0e0e0;
 }

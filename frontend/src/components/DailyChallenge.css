@@ -13,7 +13,8 @@
 }
 
 .daily-challenge-modal {
-  background: white;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 40px;
   max-width: 600px;
@@ -21,7 +22,7 @@
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
 }
 
 .daily-challenge-modal.quiz-modal {
@@ -30,10 +31,11 @@
 }
 
 .daily-challenge-modal h2 {
-  color: #667eea;
+  color: #0066CC;
   font-size: 2rem;
   margin-bottom: 20px;
   text-align: center;
+  font-weight: 700;
 }
 
 .close-button-x {
@@ -93,7 +95,7 @@
 
 .challenge-info .value {
   font-weight: 700;
-  color: #667eea;
+  color: #0066CC;
   font-size: 1.1rem;
 }
 
@@ -105,13 +107,14 @@
 
 .streak-card {
   flex: 1;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
   border-radius: 12px;
   padding: 20px;
   display: flex;
   align-items: center;
   gap: 15px;
   color: white;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
 }
 
 .streak-emoji {
@@ -174,25 +177,26 @@
 }
 
 .start-challenge-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
   color: white;
   margin-bottom: 15px;
 }
 
 .start-challenge-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.6);
 }
 
 .view-leaderboard-button {
   background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
+  color: #0066CC;
+  border: 2px solid #0066CC;
 }
 
 .view-leaderboard-button:hover {
-  background: #f8f9ff;
+  background: rgba(0, 102, 204, 0.1);
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
 }
 
 .completion-stats {
@@ -211,7 +215,10 @@
 .score-big {
   font-size: 3rem;
   font-weight: bold;
-  color: #667eea;
+  background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .percentage {
@@ -243,7 +250,7 @@
 .streak-value {
   font-size: 1.3rem;
   font-weight: bold;
-  color: #667eea;
+  color: #0066CC;
 }
 
 .completion-message {
@@ -273,13 +280,13 @@
 }
 
 .leaderboard-btn {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
   color: white;
 }
 
 .leaderboard-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
 }
 
 .close-button,
@@ -318,13 +325,13 @@
 }
 
 .leaderboard-entry.current-player {
-  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-  border: 2px solid #667eea;
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.15) 0%, rgba(106, 90, 205, 0.15) 100%);
+  border: 2px solid #0066CC;
 }
 
 .leaderboard-entry .rank {
   font-weight: bold;
-  color: #667eea;
+  color: #0066CC;
   font-size: 1.1rem;
 }
 
@@ -340,7 +347,7 @@
 
 .leaderboard-entry .percentage {
   text-align: center;
-  color: #667eea;
+  color: #0066CC;
   font-weight: 600;
 }
 
@@ -364,7 +371,7 @@
 }
 
 [data-theme="dark"] .daily-challenge-modal h2 {
-  color: #8b9aee;
+  color: #9fd3ff;
 }
 
 [data-theme="dark"] .close-button-x {
@@ -406,8 +413,8 @@
 
 [data-theme="dark"] .view-leaderboard-button {
   background: transparent;
-  color: #8b9aee;
-  border-color: #8b9aee;
+  color: #9fd3ff;
+  border-color: #9fd3ff;
 }
 
 [data-theme="dark"] .view-leaderboard-button:hover {
@@ -423,7 +430,7 @@
 }
 
 [data-theme="dark"] .streak-value {
-  color: #8b9aee;
+  color: #9fd3ff;
 }
 
 [data-theme="dark"] .completion-message {
@@ -450,8 +457,8 @@
 }
 
 [data-theme="dark"] .leaderboard-entry.current-player {
-  background: linear-gradient(135deg, #667eea25 0%, #764ba225 100%);
-  border-color: #8b9aee;
+  background: linear-gradient(135deg, rgba(159, 211, 255, 0.15) 0%, rgba(106, 90, 205, 0.15) 100%);
+  border-color: #9fd3ff;
 }
 
 [data-theme="dark"] .leaderboard-entry .username {
@@ -459,7 +466,7 @@
 }
 
 [data-theme="dark"] .leaderboard-entry .percentage {
-  color: #8b9aee;
+  color: #9fd3ff;
 }
 
 [data-theme="dark"] .leaderboard-entry .time {

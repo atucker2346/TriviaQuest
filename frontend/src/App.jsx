@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { fetchCategories, fetchQuestions, registerPlayer } from './services/api'
 import HomeScreen from './components/HomeScreen'
+import GameModeSelection from './components/GameModeSelection'
 import CategorySelection from './components/CategorySelection'
 import Quiz from './components/Quiz'
 import PlayerSetup from './components/PlayerSetup'
@@ -22,6 +23,7 @@ function App() {
   const [showPlayerSetup, setShowPlayerSetup] = useState(false)
   const [showScoreboard, setShowScoreboard] = useState(false)
   const [showDailyChallenge, setShowDailyChallenge] = useState(false)
+  const [gameMode, setGameMode] = useState(null) // 'timed' or 'solo' or null
 
   useEffect(() => {
     loadCategories()
@@ -69,6 +71,11 @@ function App() {
   const handleRestart = () => {
     setSelectedCategory(null)
     setQuestions([])
+    setGameMode(null) // Reset to mode selection
+  }
+
+  const handleModeSelect = (mode) => {
+    setGameMode(mode)
   }
 
   const handleStartGame = () => {
@@ -106,6 +113,15 @@ function App() {
 
   if (showHomeScreen) {
     return <HomeScreen onStart={handleStartGame} />
+  }
+
+  // Show mode selection before category selection
+  if (!gameMode) {
+    return (
+      <div className="app-container">
+        <GameModeSelection onSelectMode={handleModeSelect} />
+      </div>
+    )
   }
 
   if (loading && !selectedCategory) {
@@ -189,6 +205,7 @@ function App() {
           questions={questions}
           onRestart={handleRestart}
           playerId={playerId}
+          gameMode={gameMode}
         />
       )}
 

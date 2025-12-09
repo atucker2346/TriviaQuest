@@ -5,7 +5,7 @@ import Timer from './Timer'
 import { submitScore } from '../services/api'
 import './Quiz.css'
 
-function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = false, onDailyChallengeComplete }) {
+function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = false, onDailyChallengeComplete, gameMode = 'timed' }) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
   const [selectedAnswers, setSelectedAnswers] = useState({})
@@ -24,7 +24,7 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
 
   const currentQuestion = questions[currentQuestionIndex]
   const totalQuestions = questions.length
-  const timeLimit = currentQuestion?.time_limit || 30
+  const timeLimit = gameMode === 'solo' ? null : (currentQuestion?.time_limit || 30)
 
   useEffect(() => {
     setQuestionStartTime(Date.now())
@@ -32,7 +32,7 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
   }, [currentQuestionIndex])
 
   const handleAnswerSelect = (answer) => {
-    if (timeExpired) return
+    if (gameMode === 'timed' && timeExpired) return
     setSelectedAnswers({
       ...selectedAnswers,
       [currentQuestionIndex]: answer,
@@ -40,6 +40,7 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
   }
 
   const handleTimeUp = () => {
+    if (gameMode === 'solo') return // Don't enforce time in solo mode
     setTimeExpired(true)
     // Auto-submit or mark as incorrect
     if (!selectedAnswers[currentQuestionIndex]) {
@@ -106,7 +107,7 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
   }
 
   const handleNext = () => {
-    if (timeExpired) return
+    if (gameMode === 'timed' && timeExpired) return
 
     const selectedAnswer = selectedAnswers[currentQuestionIndex]
 
@@ -250,11 +251,16 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
 
       <div className="quiz-header">
         <h2>{category}</h2>
-        <Timer 
-          timeLimit={timeLimit} 
-          onTimeUp={handleTimeUp}
-          isPaused={showFeedback}
-        />
+        {gameMode === 'timed' && (
+          <Timer 
+            timeLimit={timeLimit} 
+            onTimeUp={handleTimeUp}
+            isPaused={showFeedback}
+          />
+        )}
+        {gameMode === 'solo' && (
+          <div className="mode-badge">📚 Solo Mode - Take Your Time</div>
+        )}
         <div className="progress-bar">
           <div
             className="progress-fill"
@@ -269,7 +275,7 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
       <div className="hints-container">
         <button
           onClick={handleFiftyFifty}
-          disabled={usedFiftyFifty[currentQuestionIndex] || timeExpired}
+          disabled={usedFiftyFifty[currentQuestionIndex] || (gameMode === 'timed' && timeExpired)}
           className="hint-button fifty-fifty"
           title="Eliminate 2 wrong answers"
         >
@@ -277,7 +283,7 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
         </button>
         <button
           onClick={handleSkip}
-          disabled={skippedQuestions[currentQuestionIndex] || timeExpired}
+          disabled={skippedQuestions[currentQuestionIndex] || (gameMode === 'timed' && timeExpired)}
           className="hint-button skip"
           title="Skip this question"
         >
@@ -294,22 +300,24 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
           selectedAnswer={selectedAnswers[currentQuestionIndex]}
           onAnswerSelect={handleAnswerSelect}
           eliminatedChoices={eliminatedChoices[currentQuestionIndex] || []}
-          disabled={timeExpired}
+          disabled={gameMode === 'timed' && timeExpired}
         />
       )}
 
       <div className="quiz-navigation">
-        <button
-          onClick={handlePrevious}
-          disabled={currentQuestionIndex === 0}
-          className="nav-button prev-button"
-        >
-          Previous
-        </button>
+        {gameMode === 'solo' && (
+          <button
+            onClick={handlePrevious}
+            disabled={currentQuestionIndex === 0}
+            className="nav-button prev-button"
+          >
+            Previous
+          </button>
+        )}
         <button
           onClick={handleNext}
           className="nav-button next-button"
-          disabled={timeExpired}
+          disabled={gameMode === 'timed' && timeExpired}
         >
           {currentQuestionIndex === totalQuestions - 1 ? 'Finish' : 'Next'}
         </button>
