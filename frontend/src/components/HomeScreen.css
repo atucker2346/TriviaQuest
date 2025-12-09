@@ -10,7 +10,7 @@
   justify-content: center;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #00D4FF 0%, #4B0082 50%, #ADFF2F 100%);
   z-index: 9999;
 }
 
@@ -78,18 +78,19 @@
   font-size: 1.3rem;
   font-weight: 700;
   color: white;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 50%, #2d2d2d 100%);
   border: none;
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   font-family: inherit;
 }
 
 .start-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+  background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #000000 100%);
 }
 
 .start-button:active {

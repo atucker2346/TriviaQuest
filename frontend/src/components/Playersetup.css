@@ -1,8 +1,9 @@
 .player-setup {
-  background: white;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   padding: 40px;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
   max-width: 450px;
   margin: 0 auto;
   text-align: center;
@@ -11,7 +12,11 @@
 .player-setup h3 {
   margin: 0 0 15px 0;
   font-size: 28px;
-  color: #333;
+  background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
 }
 
 .player-setup-description {
@@ -29,16 +34,17 @@
 .username-input {
   padding: 15px 20px;
   font-size: 16px;
-  border: 2px solid #e0e0e0;
+  border: 2px solid rgba(0, 212, 255, 0.3);
   border-radius: 8px;
   transition: all 0.3s ease;
   font-family: inherit;
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .username-input:focus {
   outline: none;
-  border-color: #4a90e2;
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+  border-color: #00D4FF;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
 }
 
 .error-message {
@@ -52,7 +58,7 @@
   font-size: 18px;
   font-weight: 600;
   color: white;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -62,7 +68,7 @@
 
 .submit-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
 }
 
 .submit-button:active {

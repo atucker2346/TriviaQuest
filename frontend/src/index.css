@@ -38,7 +38,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  background: linear-gradient(135deg, #00D4FF 0%, #4B0082 50%, #ADFF2F 100%);
   min-height: 100vh;
   display: flex;
   justify-content: center;

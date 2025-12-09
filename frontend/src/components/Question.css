@@ -7,7 +7,7 @@
   color: #333;
   margin-bottom: 25px;
   line-height: 1.6;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .choices-container {
@@ -18,8 +18,8 @@
 
 .choice-button {
   padding: 18px 20px;
-  background: #f8f9fa;
-  border: 2px solid #e0e0e0;
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(0, 212, 255, 0.3);
   border-radius: 10px;
   font-size: 1rem;
   text-align: left;
@@ -29,13 +29,14 @@
 }
 
 .choice-button:hover {
-  background: #e9ecef;
+  background: rgba(0, 212, 255, 0.1);
   border-color: #667eea;
   transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
 }
 
 .choice-button.selected {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #00D4FF 0%, #6A5ACD 50%, #ADFF2F 100%);
   color: white;
   border-color: #667eea;
   font-weight: 600;
