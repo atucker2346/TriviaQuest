@@ -79,7 +79,7 @@ function App() {
     if (!username) {
       // User skipped
       setShowPlayerSetup(false)
-      return
+      return { success: true, skipped: true }
     }
 
     try {
@@ -89,8 +89,11 @@ function App() {
       localStorage.setItem('playerId', data.player_id.toString())
       localStorage.setItem('playerUsername', data.username)
       setShowPlayerSetup(false)
+      return { success: true }
     } catch (err) {
-      alert('Failed to register player: ' + err.message)
+      // Keep the dialog open so user can retry
+      setShowPlayerSetup(true)
+      throw err
     }
   }
 

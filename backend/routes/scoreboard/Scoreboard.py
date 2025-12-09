@@ -12,6 +12,59 @@ def get_db():
     conn.row_factory = sqlite3.Row
     return conn
 
+def ensure_schema(conn):
+    """Create required tables/columns if they don't exist"""
+    cursor = conn.cursor()
+
+    # Players table
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS players (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        """
+    )
+
+    # Scores table with optional time/hints columns
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS scores (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            player_id INTEGER NOT NULL,
+            category TEXT NOT NULL,
+            score INTEGER NOT NULL,
+            total_questions INTEGER NOT NULL,
+            percentage REAL NOT NULL,
+            time_taken INTEGER,
+            hints_used INTEGER DEFAULT 0,
+            played_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (player_id) REFERENCES players(id)
+        )
+        """
+    )
+
+    # Backfill columns if table existed without them
+    try:
+        cursor.execute("ALTER TABLE scores ADD COLUMN time_taken INTEGER")
+    except sqlite3.OperationalError:
+        pass
+    try:
+        cursor.execute("ALTER TABLE scores ADD COLUMN hints_used INTEGER DEFAULT 0")
+    except sqlite3.OperationalError:
+        pass
+
+    # Helpful indexes
+    cursor.execute(
+        "CREATE INDEX IF NOT EXISTS idx_scores_player_id ON scores(player_id)"
+    )
+    cursor.execute(
+        "CREATE INDEX IF NOT EXISTS idx_scores_played_at ON scores(played_at DESC)"
+    )
+
+    conn.commit()
+
 @scoreboard_bp.route("/player/register", methods=["POST"])
 def register_player():
     """Register a new player or get existing player ID"""
@@ -27,6 +80,7 @@ def register_player():
         
         conn = get_db()
         cursor = conn.cursor()
+        ensure_schema(conn)
         
         # Try to insert new player
         try:
@@ -77,6 +131,7 @@ def submit_score():
         
         conn = get_db()
         cursor = conn.cursor()
+        ensure_schema(conn)
         
         cursor.execute(
             """
@@ -132,6 +187,12 @@ def get_player_stats(player_id):
             "SELECT SUM(total_questions) as total FROM scores WHERE player_id = ?",
             (player_id,)
         ).fetchone()["total"] or 0
+
+        # Get total time
+        total_time_taken = conn.execute(
+            "SELECT SUM(time_taken) as total FROM scores WHERE player_id = ?",
+            (player_id,)
+        ).fetchone()["total"] or 0
         
         # Get average percentage
         avg_percentage = conn.execute(
@@ -150,6 +211,17 @@ def get_player_stats(player_id):
             """,
             (player_id,)
         ).fetchone()
+
+        # Fastest average time per question (only for games with time data)
+        fastest_time_row = conn.execute(
+            """
+            SELECT MIN(time_taken * 1.0 / total_questions) as best_time_per_question
+            FROM scores
+            WHERE player_id = ? AND time_taken IS NOT NULL AND total_questions > 0
+            """,
+            (player_id,)
+        ).fetchone()
+        best_time_per_question = fastest_time_row["best_time_per_question"] if fastest_time_row else None
         
         # Get recent scores
         recent_scores = conn.execute(
@@ -175,9 +247,11 @@ def get_player_stats(player_id):
                 "total_games": total_games,
                 "total_score": total_score,
                 "total_questions": total_questions,
-                "average_percentage": round(avg_percentage, 2)
+                "average_percentage": round(avg_percentage, 2),
+                "average_time_per_question": round(total_time_taken / total_questions, 2) if total_questions and total_time_taken else None
             },
             "best_score": dict(best_score) if best_score else None,
+            "best_time_per_question": round(best_time_per_question, 2) if best_time_per_question else None,
             "recent_scores": [dict(row) for row in recent_scores]
         })
         
@@ -192,7 +266,7 @@ def get_global_leaderboard():
         
         conn = get_db()
         
-        # Get top players by average percentage
+        # Get top players by average percentage and speed
         rows = conn.execute(
             """
             SELECT 
@@ -201,8 +275,10 @@ def get_global_leaderboard():
                 COUNT(s.id) as games_played,
                 SUM(s.score) as total_score,
                 SUM(s.total_questions) as total_questions,
+                SUM(CASE WHEN s.time_taken IS NOT NULL THEN s.time_taken ELSE 0 END) as total_time_taken,
                 AVG(s.percentage) as avg_percentage,
-                MAX(s.percentage) as best_percentage
+                MAX(s.percentage) as best_percentage,
+                MIN(CASE WHEN s.time_taken IS NOT NULL AND s.total_questions > 0 THEN (s.time_taken * 1.0 / s.total_questions) END) as best_time_per_question
             FROM players p
             JOIN scores s ON p.id = s.player_id
             GROUP BY p.id
@@ -217,6 +293,16 @@ def get_global_leaderboard():
         
         leaderboard = []
         for idx, row in enumerate(rows, 1):
+            total_questions = row["total_questions"] or 0
+            total_time_taken = row["total_time_taken"] or 0
+            avg_time_per_question = None
+            if total_questions > 0 and total_time_taken > 0:
+                avg_time_per_question = round(total_time_taken / total_questions, 2)
+
+            best_time_per_question = None
+            if row["best_time_per_question"] is not None:
+                best_time_per_question = round(row["best_time_per_question"], 2)
+
             leaderboard.append({
                 "rank": idx,
                 "player_id": row["id"],
@@ -225,7 +311,9 @@ def get_global_leaderboard():
                 "total_score": row["total_score"],
                 "total_questions": row["total_questions"],
                 "avg_percentage": round(row["avg_percentage"], 2),
-                "best_percentage": round(row["best_percentage"], 2)
+                "best_percentage": round(row["best_percentage"], 2),
+                "avg_time_per_question": avg_time_per_question,
+                "best_time_per_question": best_time_per_question
             })
         
         return jsonify(leaderboard)

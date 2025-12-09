@@ -4,8 +4,9 @@ import './PlayerSetup.css'
 function PlayerSetup({ onSetPlayer }) {
   const [username, setUsername] = useState('')
   const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     
     const trimmedUsername = username.trim()
@@ -20,7 +21,15 @@ function PlayerSetup({ onSetPlayer }) {
       return
     }
     
-    onSetPlayer(trimmedUsername)
+    try {
+      setSubmitting(true)
+      setError('')
+      await onSetPlayer(trimmedUsername)
+    } catch (err) {
+      setError(err?.message || 'Failed to set username. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -42,13 +51,14 @@ function PlayerSetup({ onSetPlayer }) {
           maxLength={20}
         />
         {error && <div className="error-message">{error}</div>}
-        <button type="submit" className="submit-button">
+        <button type="submit" className="submit-button" disabled={submitting}>
           Continue
         </button>
       </form>
       <button 
         className="skip-button"
         onClick={() => onSetPlayer(null)}
+        disabled={submitting}
       >
         Skip for now
       </button>
