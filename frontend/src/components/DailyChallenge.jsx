@@ -199,9 +199,6 @@ function DailyChallenge({ playerId, onClose }) {
               ))
             )}
           </div>
-          <button onClick={() => setShowLeaderboard(false)} className="back-button">
-            Back
-          </button>
         </div>
       </div>
     )

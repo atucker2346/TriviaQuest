@@ -106,3 +106,86 @@ export const getPlayerStreak = async (playerId) => {
   if (!response.ok) throw new Error('Failed to fetch player streak')
   return response.json()
 }
+
+// Challenge Mode APIs
+export const createChallenge = async (playerId, category, maxPlayers = 10) => {
+  const response = await fetch(`${API_BASE_URL}/challenge/create`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      player_id: playerId,
+      category,
+      max_players: maxPlayers,
+    }),
+  })
+  if (!response.ok) {
+    const error = await response.json()
+    throw new Error(error.error || 'Failed to create challenge')
+  }
+  return response.json()
+}
+
+export const joinChallenge = async (playerId, roomCode) => {
+  const response = await fetch(`${API_BASE_URL}/challenge/join`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      player_id: playerId,
+      room_code: roomCode,
+    }),
+  })
+  if (!response.ok) {
+    const error = await response.json()
+    throw new Error(error.error || 'Failed to join challenge')
+  }
+  return response.json()
+}
+
+export const getChallenge = async (challengeId) => {
+  const response = await fetch(`${API_BASE_URL}/challenge/${challengeId}`)
+  if (!response.ok) throw new Error('Failed to fetch challenge')
+  return response.json()
+}
+
+export const startChallenge = async (challengeId, playerId) => {
+  const response = await fetch(`${API_BASE_URL}/challenge/${challengeId}/start`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ player_id: playerId }),
+  })
+  if (!response.ok) {
+    const error = await response.json()
+    throw new Error(error.error || 'Failed to start challenge')
+  }
+  return response.json()
+}
+
+export const submitChallengeScore = async (challengeId, playerId, score, totalQuestions, timeTaken) => {
+  const response = await fetch(`${API_BASE_URL}/challenge/${challengeId}/submit`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      player_id: playerId,
+      score,
+      total_questions: totalQuestions,
+      time_taken: timeTaken,
+    }),
+  })
+  if (!response.ok) {
+    const error = await response.json()
+    throw new Error(error.error || 'Failed to submit challenge score')
+  }
+  return response.json()
+}
+
+export const getChallengeLeaderboard = async (challengeId) => {
+  const response = await fetch(`${API_BASE_URL}/challenge/${challengeId}/leaderboard`)
+  if (!response.ok) throw new Error('Failed to fetch challenge leaderboard')
+  return response.json()
+}
+
+export const listChallenges = async (limit = 20) => {
+  const response = await fetch(`${API_BASE_URL}/challenge/list?limit=${limit}`)
+  if (!response.ok) throw new Error('Failed to fetch challenges')
+  return response.json()
+}

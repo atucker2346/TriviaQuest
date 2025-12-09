@@ -7,6 +7,8 @@ import Quiz from './components/Quiz'
 import PlayerSetup from './components/PlayerSetup'
 import Scoreboard from './components/Scoreboard'
 import DailyChallenge from './components/DailyChallenge'
+import ChallengeMode from './components/ChallengeMode'
+import ChallengeRoom from './components/ChallengeRoom'
 import ThemeToggle from './components/ThemeToggle'
 import SoundToggle from './components/SoundToggle'
 import './App.css'
@@ -86,7 +88,7 @@ function App() {
     if (!username) {
       // User skipped
       setShowPlayerSetup(false)
-      return { success: true, skipped: true }
+      return
     }
 
     try {
@@ -96,11 +98,8 @@ function App() {
       localStorage.setItem('playerId', data.player_id.toString())
       localStorage.setItem('playerUsername', data.username)
       setShowPlayerSetup(false)
-      return { success: true }
     } catch (err) {
-      // Keep the dialog open so user can retry
-      setShowPlayerSetup(true)
-      throw err
+      alert('Failed to register player: ' + err.message)
     }
   }
 
@@ -167,6 +166,13 @@ function App() {
             📅 Daily
           </button>
           <button 
+            className="challenge-mode-button"
+            onClick={() => setShowChallengeMode(true)}
+            title="Challenge Mode"
+          >
+            ⚔️ Challenge
+          </button>
+          <button 
             className="scoreboard-button"
             onClick={() => setShowScoreboard(true)}
           >
@@ -220,6 +226,29 @@ function App() {
         <DailyChallenge
           playerId={playerId}
           onClose={() => setShowDailyChallenge(false)}
+        />
+      )}
+
+      {showChallengeMode && !currentChallenge && (
+        <ChallengeMode
+          playerId={playerId}
+          onStartChallenge={(challengeId, roomCode) => {
+            setCurrentChallenge({ challengeId, roomCode })
+            setShowChallengeMode(false)
+          }}
+          onClose={() => setShowChallengeMode(false)}
+        />
+      )}
+
+      {currentChallenge && (
+        <ChallengeRoom
+          challengeId={currentChallenge.challengeId}
+          roomCode={currentChallenge.roomCode}
+          playerId={playerId}
+          onClose={() => setCurrentChallenge(null)}
+          onComplete={() => {
+            // Challenge completed, keep room open to see final results
+          }}
         />
       )}
     </div>

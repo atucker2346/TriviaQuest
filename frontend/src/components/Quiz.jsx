@@ -42,31 +42,36 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
   const handleTimeUp = () => {
     if (gameMode === 'solo') return // Don't enforce time in solo mode
     setTimeExpired(true)
-    // Auto-submit or mark as incorrect
-    if (!selectedAnswers[currentQuestionIndex]) {
-      // No answer selected, mark as skipped
-      setSkippedQuestions({
-        ...skippedQuestions,
-        [currentQuestionIndex]: true
-      })
-    }
-    // Record time
+    
+    // Record time for current question
     const timeTaken = Math.floor((Date.now() - questionStartTime) / 1000)
-    setQuestionTimes({
+    const updatedQuestionTimes = {
       ...questionTimes,
       [currentQuestionIndex]: timeTaken
-    })
+    }
+    setQuestionTimes(updatedQuestionTimes)
     
-    // Show feedback after a brief delay
-    setTimeout(() => {
-      const selectedAnswer = selectedAnswers[currentQuestionIndex]
-      const isCorrect = selectedAnswer === currentQuestion.correct_answer
-      setIsAnswerCorrect(isCorrect)
-      if (isCorrect) {
-        setScore(score + 1)
+    // End the quiz immediately - calculate final score and show results
+    const finalScore = calculateScore()
+    // Calculate total time including current question
+    const previousTotalTime = Object.values(questionTimes).reduce((sum, time) => sum + time, 0)
+    const finalTime = previousTotalTime + timeTaken
+    setScore(finalScore)
+    setTotalTimeTaken(finalTime)
+    setShowResults(true)
+
+    if (playerId && !scoreSubmitted) {
+      try {
+        if (isDailyChallenge && onDailyChallengeComplete) {
+          await onDailyChallengeComplete(finalScore, totalQuestions, finalTime)
+        } else {
+          await submitScore(playerId, category, finalScore, totalQuestions, finalTime, hintsUsed)
+        }
+        setScoreSubmitted(true)
+      } catch (error) {
+        console.error('Failed to submit score:', error)
       }
-      setShowFeedback(true)
-    }, 500)
+    }
   }
 
   const handleFiftyFifty = () => {
@@ -133,20 +138,6 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
     setShowFeedback(true)
   }
 
-  const calculateScore = () => {
-    let total = 0
-    questions.forEach((q, index) => {
-      if (selectedAnswers[index] === q.correct_answer) {
-        total++
-      }
-    })
-    return total
-  }
-
-  const calculateTotalTime = () => {
-    return Object.values(questionTimes).reduce((sum, time) => sum + time, 0)
-  }
-
   const handleContinue = async () => {
     setShowFeedback(false)
     setTimeExpired(false)
@@ -162,9 +153,10 @@ function Quiz({ category, questions, onRestart, playerId, isDailyChallenge = fal
 
       if (playerId && !scoreSubmitted) {
         try {
-          if (isDailyChallenge && onDailyChallengeComplete) {
+          if (onDailyChallengeComplete) {
+            // Used for both daily challenges and regular challenges
             await onDailyChallengeComplete(finalScore, totalQuestions, finalTime)
-          } else {
+          } else if (playerId) {
             await submitScore(playerId, category, finalScore, totalQuestions, finalTime, hintsUsed)
           }
           setScoreSubmitted(true)

@@ -48,9 +48,7 @@ function Scoreboard({ playerId, onClose }) {
               <th>Games</th>
               <th>Total Score</th>
               <th>Avg %</th>
-              <th>Avg Time/Q</th>
               <th>Best %</th>
-              <th>Fastest Time/Q</th>
             </tr>
           </thead>
           <tbody>
@@ -72,9 +70,7 @@ function Scoreboard({ playerId, onClose }) {
                 <td>{entry.games_played}</td>
                 <td>{entry.total_score}/{entry.total_questions}</td>
                 <td className="percentage">{entry.avg_percentage}%</td>
-                <td>{entry.avg_time_per_question ? `${entry.avg_time_per_question}s` : '—'}</td>
                 <td className="percentage">{entry.best_percentage}%</td>
-                <td>{entry.best_time_per_question ? `${entry.best_time_per_question}s` : '—'}</td>
               </tr>
             ))}
           </tbody>
@@ -93,9 +89,6 @@ function Scoreboard({ playerId, onClose }) {
     if (!playerStats) return <div className="no-data">No stats available</div>
 
     const { player, stats, best_score, recent_scores } = playerStats
-    const averageTimeText = stats.average_time_per_question
-      ? `${stats.average_time_per_question}s/question`
-      : '—'
 
     return (
       <div className="player-stats-container">
@@ -117,10 +110,6 @@ function Scoreboard({ playerId, onClose }) {
             <div className="stat-value">{stats.average_percentage}%</div>
             <div className="stat-label">Average Score</div>
           </div>
-          <div className="stat-card">
-            <div className="stat-value">{averageTimeText}</div>
-            <div className="stat-label">Avg Time / Question</div>
-          </div>
         </div>
 
         {best_score && (
@@ -133,17 +122,6 @@ function Scoreboard({ playerId, onClose }) {
               </div>
               <div className="best-score-date">
                 {new Date(best_score.played_at).toLocaleDateString()}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {playerStats.best_time_per_question && (
-          <div className="best-score-section">
-            <h4>⚡ Fastest Pace</h4>
-            <div className="best-score-card">
-              <div className="best-score-result">
-                {playerStats.best_time_per_question}s per question
               </div>
             </div>
           </div>
@@ -174,9 +152,9 @@ function Scoreboard({ playerId, onClose }) {
   return (
     <div className="scoreboard-overlay">
       <div className="scoreboard-modal">
+        <button className="close-button" onClick={onClose}>×</button>
         <div className="scoreboard-header">
           <h2>Scoreboard</h2>
-          <button className="close-button" onClick={onClose}>×</button>
         </div>
 
         <div className="scoreboard-tabs">
