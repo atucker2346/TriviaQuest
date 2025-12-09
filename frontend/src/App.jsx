@@ -182,7 +182,6 @@ function App() {
           categories={categories}
           onSelect={handleCategorySelect}
           loading={loading}
-          onBack={() => setShowHomeScreen(true)}
         />
       ) : (
         <Quiz
@@ -190,7 +189,6 @@ function App() {
           questions={questions}
           onRestart={handleRestart}
           playerId={playerId}
-          onBack={handleRestart}
         />
       )}
 
