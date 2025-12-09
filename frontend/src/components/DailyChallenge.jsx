@@ -129,6 +129,7 @@ function DailyChallenge({ playerId, onClose }) {
             playerId={playerId}
             isDailyChallenge={true}
             onDailyChallengeComplete={handleChallengeComplete}
+            onBack={handleBackToMenu}
           />
         </div>
       </div>
