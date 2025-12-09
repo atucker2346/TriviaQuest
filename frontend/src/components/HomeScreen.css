@@ -1,0 +1,121 @@
+.home-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  z-index: 9999;
+}
+
+.unicorn-studio-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.unicorn-studio-player {
+  width: 100vw !important;
+  height: 100vh !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Target any child elements Unicorn Studio creates */
+.unicorn-studio-player canvas,
+.unicorn-studio-player iframe,
+.unicorn-studio-player > * {
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  background: transparent !important;
+}
+
+/* Ensure canvas is visible */
+.unicorn-studio-player canvas {
+  object-fit: cover !important;
+}
+
+.home-overlay {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  text-align: center;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  pointer-events: auto;
+}
+
+
+.start-button {
+  padding: 18px 50px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+  font-family: inherit;
+}
+
+.start-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+}
+
+.start-button:active {
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-overlay {
+    bottom: 60px;
+  }
+
+  .start-button {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+  }
+
+  .unicorn-studio-player {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+
+  .unicorn-studio-player canvas,
+  .unicorn-studio-player iframe,
+  .unicorn-studio-player > * {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}

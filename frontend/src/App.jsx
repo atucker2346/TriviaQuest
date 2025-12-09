@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { fetchCategories, fetchQuestions, registerPlayer } from './services/api'
+import HomeScreen from './components/HomeScreen'
 import CategorySelection from './components/CategorySelection'
 import Quiz from './components/Quiz'
 import PlayerSetup from './components/PlayerSetup'
@@ -10,6 +11,7 @@ import SoundToggle from './components/SoundToggle'
 import './App.css'
 
 function App() {
+  const [showHomeScreen, setShowHomeScreen] = useState(true)
   const [categories, setCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [questions, setQuestions] = useState([])
@@ -69,6 +71,10 @@ function App() {
     setQuestions([])
   }
 
+  const handleStartGame = () => {
+    setShowHomeScreen(false)
+  }
+
   const handleSetPlayer = async (username) => {
     if (!username) {
       // User skipped
@@ -93,6 +99,10 @@ function App() {
     setPlayerUsername(null)
     localStorage.removeItem('playerId')
     localStorage.removeItem('playerUsername')
+  }
+
+  if (showHomeScreen) {
+    return <HomeScreen onStart={handleStartGame} />
   }
 
   if (loading && !selectedCategory) {
