@@ -1,6 +1,17 @@
+import { useEffect } from 'react'
+import { soundManager } from '../utils/sounds'
 import './AnswerFeedback.css'
 
 function AnswerFeedback({ isCorrect, correctAnswer, onContinue }) {
+  useEffect(() => {
+    // Play sound effect
+    if (isCorrect) {
+      soundManager.playCorrect()
+    } else {
+      soundManager.playWrong()
+    }
+  }, [isCorrect])
+
   return (
     <div className={`feedback-overlay ${isCorrect ? 'correct' : 'incorrect'}`}>
       <div className="feedback-container">
@@ -29,9 +40,9 @@ function AnswerFeedback({ isCorrect, correctAnswer, onContinue }) {
           Continue
         </button>
       </div>
+      {isCorrect && <div className="confetti-container"></div>}
     </div>
   )
 }
 
 export default AnswerFeedback
-

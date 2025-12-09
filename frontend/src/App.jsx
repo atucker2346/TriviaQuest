@@ -5,6 +5,9 @@ import CategorySelection from './components/CategorySelection'
 import Quiz from './components/Quiz'
 import PlayerSetup from './components/PlayerSetup'
 import Scoreboard from './components/Scoreboard'
+import DailyChallenge from './components/DailyChallenge'
+import ThemeToggle from './components/ThemeToggle'
+import SoundToggle from './components/SoundToggle'
 import './App.css'
 
 function App() {
@@ -18,6 +21,7 @@ function App() {
   const [playerUsername, setPlayerUsername] = useState(null)
   const [showPlayerSetup, setShowPlayerSetup] = useState(false)
   const [showScoreboard, setShowScoreboard] = useState(false)
+  const [showDailyChallenge, setShowDailyChallenge] = useState(false)
 
   useEffect(() => {
     loadCategories()
@@ -134,6 +138,15 @@ function App() {
       <div className="app-header">
         <h1 className="app-title">TriviaQuest</h1>
         <div className="app-controls">
+          <ThemeToggle />
+          <SoundToggle />
+          <button 
+            className="daily-challenge-button"
+            onClick={() => setShowDailyChallenge(true)}
+            title="Daily Challenge"
+          >
+            📅 Daily
+          </button>
           <button 
             className="scoreboard-button"
             onClick={() => setShowScoreboard(true)}
@@ -180,6 +193,13 @@ function App() {
         <Scoreboard
           playerId={playerId}
           onClose={() => setShowScoreboard(false)}
+        />
+      )}
+
+      {showDailyChallenge && (
+        <DailyChallenge
+          playerId={playerId}
+          onClose={() => setShowDailyChallenge(false)}
         />
       )}
     </div>
