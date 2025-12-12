@@ -62,3 +62,25 @@ The frontend will run on `http://localhost:3000`
 3. Open `http://localhost:3000` in your browser
 4. Select a category and start answering trivia questions!
 
+## Deployment
+
+### Frontend (Vercel)
+
+The frontend is configured for deployment on Vercel. See [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md) for detailed instructions.
+
+Quick steps:
+1. Push your code to GitHub
+2. Import the project on Vercel
+3. Set the root directory to `frontend` (or use the root `vercel.json`)
+4. Add environment variable: `VITE_API_BASE_URL` = your backend URL
+5. Deploy!
+
+### Backend
+
+The backend can be deployed on Railway, Render, Heroku, or any Python hosting service. See [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md) for backend deployment options.
+
+**Important**: Make sure to:
+- Configure CORS to allow your Vercel domain
+- Set up environment variables (especially `CORS_ORIGINS` if restricting origins)
+- Run database migrations if needed
+
